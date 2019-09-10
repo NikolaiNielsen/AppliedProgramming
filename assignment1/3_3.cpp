@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
-#include <cmath>
+// #include <cmath>
 
 // double* linspace(double start, double stop, int N)
 // {
@@ -45,16 +45,16 @@ void implicit_Euler(int N)
 
 }
 
-int main()
-{
-    // double start=0;
-    // double stop=1;
-    // int N=50;
-    // double x* = linspace(start, stop, N);
-    // for (int i=0; i<N; i++)
-    // {
-    //     std::cout << x[i];
-    // }
-    implicit_Euler(50);
-    return 0;
-}
+// int main()
+// {
+//     // double start=0;
+//     // double stop=1;
+//     // int N=50;
+//     // double x* = linspace(start, stop, N);
+//     // for (int i=0; i<N; i++)
+//     // {
+//     //     std::cout << x[i];
+//     // }
+//     implicit_Euler(50);
+//     return 0;
+// }
