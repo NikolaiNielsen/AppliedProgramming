@@ -33,13 +33,20 @@ int main() {
 
 
 void Multiply(double *res, double *A, double **B, int ACols, int BRows, int BCols){
-    // Vector-matrix multiplication
-    
+    // Vector-matrix product
+    for (int i=0; i<BRows; i++){
+        for (int j=0; j<ACols; j++){
+            res[i] = res[i] + B[i][j] * A[j];
+            // std::cout << i << " " << j << " " << B[i][j] << "\n";
+        }
+        // std::cout << i << " " << res[i] << "\n";
+    }
 }
 
 
 void Multiply(double **res, double **B, double scalar, int BRows, int BCols)
 {
+    // Matrix-scalar product
     for (int i=0; i<BRows; i++){
         for (int j=0; j<BCols; j++){
             res[i][j] = B[i][j] * scalar;
@@ -49,7 +56,8 @@ void Multiply(double **res, double **B, double scalar, int BRows, int BCols)
 }
 
 void Multiply(double **res, double scalar, double **B, int BRows, int BCols)
-{
+{   
+    // Scalar-matrix product
     for (int i=0; i<BRows; i++){
         for (int j=0; j<BCols; j++){
             res[i][j] = scalar * B[i][j];
