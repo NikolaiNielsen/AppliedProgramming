@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include "5_4.h"
 
 
 double calc_std(double a[], int length){
