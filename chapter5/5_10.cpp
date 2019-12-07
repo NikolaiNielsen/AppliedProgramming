@@ -71,21 +71,24 @@ void guassian_elimination(double **A, double *b, double *u, int n){
         // perform pivot if needed
         if (current_row != k) {
             std::cout << "swap rows " << k << " and " << current_row << "\n";
+            // Permute A
             for (int p=k; p<n; p++){
                 swap = A[current_row][p];
                 A[current_row][p] = A[k][p];
                 A[k][p] = swap;
             }
+
+            // Permute b
             swap = b[current_row];
             b[current_row] = b[k];
             b[k] = swap;
         }
 
-        // Lower part
+        // subdiagonals of L
         for (int i=k+1; i<n; i++){
             A[i][k] = A[i][k]/A[k][k];
         }
-        // Rest of matrix, upper part
+        // Update U and b. Corresponds to elementary elimination matrices
         for (int j=k+1; j<n; j++){
             b[j] = b[j] - b[k]*A[j][k];
             for (int i=k+1; i<n; i++){
@@ -106,24 +109,8 @@ void guassian_elimination(double **A, double *b, double *u, int n){
         std::cout << "\n";
     }
 
-    // for (int i=0; i<n; i++){
-    //     for (int j=0; j<n; j++){
-    //         std::cout << A[i][j] << ", ";
-    //     }
-    //     std::cout << "\n";
-    // }
-
-    // Forward substitution
-    // for (int j=0; j<n; j++){
-    //     // Make sure we don't have a singular L matrix
-    //     assert(A[j][j] != 0);
-    //     y[j] = b[j]; // We don't divide by diagonal element of A, since that is a part of U, and we know L[j][j] == 0.
-    //     for (int i=j+1; i<3; i++){
-    //         b[i] = b[i] - A[i][j]*y[j];
-    //     }
-    // }
-
-    // Back substitution
+    // Solution obtained by back-substitution with Ux=b'
+    // where b' is permuted and transformed b
     for (int j=n-1; j>=0; j--){
         u[j] = b[j] / A[j][j];
         for (int i=0; i<j; i++){
