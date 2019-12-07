@@ -35,30 +35,19 @@ int main() {
 };
 
 void guassian_elimination(double **A, double *b, double *u, int n){
-    // Solve a n by n system. Use LU decomposition, pivoting and back/forward-substitution
+    // Solve a n by n system. Use LU decomposition, pivoting and back substitution.
     
     
-    // Create intermediary matrices and vectors
-    double y[n];
+    // Create intermediary values
     double swap;
     double current_max;
     int current_row;
-
-    
-    double **L = new double*[n];
-    double **U = new double*[n];
-    double **P = new double*[n];
-    for (int i=0; i<n; i++){
-        L[i] = new double[n];
-        U[i] = new double[n];
-        P[i] = new double[n];
-    }
 
     // LU-decomposition. Diagonal and superdiagonal of modified A construct U.
     // Lower diagonal part makes up L, which has an implicit diagonal of 1
     for (int k=0; k<n-1; k++){
         // Find pivot
-        std::cout << "LU Decomp. k = " << k << "\n";
+        // std::cout << "LU Decomp. k = " << k << "\n";
         current_max = fabs(A[k][k]);
         current_row = k;
         // if (A[k][k] == 0){
@@ -70,7 +59,7 @@ void guassian_elimination(double **A, double *b, double *u, int n){
         }
         // perform pivot if needed
         if (current_row != k) {
-            std::cout << "swap rows " << k << " and " << current_row << "\n";
+            // std::cout << "swap rows " << k << " and " << current_row << "\n";
             // Permute A
             for (int p=k; p<n; p++){
                 swap = A[current_row][p];
@@ -95,18 +84,20 @@ void guassian_elimination(double **A, double *b, double *u, int n){
                 A[i][j] = A[i][j] - A[i][k]*A[k][j];
             }
         }
-        std::cout << "New, permuted matrix:\n";
-        for (int i=0; i<n; i++){
-            for (int j=0; j<n; j++){
-                std::cout << A[i][j] << ", ";
-            }
-            std::cout << "\n";
-        }
-        std::cout << "And b:\n";
-        for (int i=0; i<n; i++){
-            std::cout << b[i] << ", ";
-        }
-        std::cout << "\n";
+
+        // Stuff for debugging
+        // std::cout << "New, permuted matrix:\n";
+        // for (int i=0; i<n; i++){
+        //     for (int j=0; j<n; j++){
+        //         std::cout << A[i][j] << ", ";
+        //     }
+        //     std::cout << "\n";
+        // }
+        // std::cout << "And b:\n";
+        // for (int i=0; i<n; i++){
+        //     std::cout << b[i] << ", ";
+        // }
+        // std::cout << "\n";
     }
 
     // Solution obtained by back-substitution with Ux=b'
