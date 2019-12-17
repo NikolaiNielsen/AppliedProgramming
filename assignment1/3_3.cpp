@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
-// #include <cmath>
 
 // double* linspace(double start, double stop, int N)
 // {
