@@ -1,0 +1,36 @@
+{
+    // APP main build task
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clang++ build assignment",
+            "type": "shell",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${workspaceFolder}/main.cpp",
+                {
+                    "value": "${workspaceFolder}/assignment${input:assignment}/*.cpp",
+                    "quoting": "escape"
+                },
+                "-Xclang",
+                "-flto-visibility-public-std",
+                "-o",
+                "${workspaceFolder}/assignment${input:assignment}.out"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "group": "build"
+        },
+    ],
+    "inputs": [
+        {
+            "id": "assignment",
+            "type": "promptString",
+            "description": "Assignment number",
+            "default": "",
+            "password": false
+        }
+    ]
+}
