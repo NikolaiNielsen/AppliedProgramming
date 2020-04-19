@@ -18,7 +18,7 @@ void guassian_elimination(double **A, double *b, double *u, int n){
         current_max = fabs(A[k][k]);
         current_row = k;
         for (int p=k; p<n; p++){
-            if (fabs(A[p][k] > current_max)){
+            if (fabs(A[p][k]) > current_max){
                 current_max = fabs(A[p][k]);
                 current_row = p;
             }
