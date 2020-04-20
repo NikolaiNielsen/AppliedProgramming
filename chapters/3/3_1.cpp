@@ -14,8 +14,16 @@ int main(int argc, char *argv[])
     // 2: Extend the code so that the output stream is flushed immediately after
     // each line of the file is written.
 
+    // 3: Extend the code so that the precision is set to 10 significant
+    // figures, the output is in scientific notation, and plus signs are shown
+    // for positive numbers.
+
 
     std::ofstream write_output("x_and_y.dat");
+    write_output.setf(std::ios::scientific);    // 3.1.3
+    write_output.setf(std::ios::showpos);       // 3.1.3
+    write_output.precision(10);                 // 3.1.3
+
     assert(write_output.is_open());  
 
     // write the first line and add a new line
@@ -24,7 +32,7 @@ int main(int argc, char *argv[])
         write_output << x[i] << " ";
     }
     write_output << "\n";
-    write_output.flush();
+    write_output.flush(); // 3.1.2
 
     // write second line
     for (int i = 0; i < 4; i++)
@@ -32,7 +40,7 @@ int main(int argc, char *argv[])
         write_output << y[i] << " ";
     }
     write_output << "\n";
-    write_output.flush();
+    write_output.flush(); // 3.1.2
 
     write_output.close();
     return 0;
