@@ -1,0 +1,9 @@
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char *argv[])
+{
+    double x[4] = {0.0, 1.0, 1.0, 0.0};
+    double y[4] = {0.0, 0.0, 1.0, 1.0};
+    return 0;
+}
