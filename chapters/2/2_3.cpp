@@ -3,12 +3,16 @@
 
 int main()
 {
-    // initialize total to 1 and count to -1 to offset for the exit statement
-    int total=1, count=-1, input=0;
 
-    while (input != -1)
+    int total=0, count=0, input=0;
+
+    while (true)
     {
         std::cin >> input;
+        if (input == -1)
+        {
+            break;
+        }
         total += input;
         count ++;
     };
