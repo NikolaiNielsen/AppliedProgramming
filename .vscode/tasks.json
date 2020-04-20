@@ -29,9 +29,16 @@
             "command": "zip",
             "args": [
                 "-u", // update only with new or changed files
+                "-j", // don't include folder names
                 "${workspaceFolder}/handin${input:assignment}.zip", // output
-                "${workspaceFolder}/assignment${input:assignment}/*.cpp",
-                "${workspaceFolder}/assignment${input:assignment}/*.h",
+                {
+                    "value": "${workspaceFolder}/assignment${input:assignment}/*.cpp",
+                    "quoting": "escape"
+                },
+                {
+                    "value": "${workspaceFolder}/assignment${input:assignment}/*.h",
+                    "quoting": "escape"
+                },
             ],
             "options": {"cwd": "${workspaceFolder}"},
         }
