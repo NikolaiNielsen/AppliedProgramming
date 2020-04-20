@@ -21,7 +21,7 @@
             "options": {
                 "cwd": "/usr/bin"
             },
-            "group": "build"
+            "group": {"kind": "build", "isDefault": true}
         },
     ],
     "inputs": [
