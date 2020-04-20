@@ -2,6 +2,8 @@
 
 int main()
 {
+    // dynamically allocate memory for two 3-vectors, calculate their dot
+    // product, and free up the memory. Do it 1e9 times
     for (int i=0; i < 1000000000; i++){
         double* x, *y;
         double dot;
