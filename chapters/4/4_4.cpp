@@ -2,7 +2,9 @@
 
 int main()
 {
-
+    // dynamically allocate memory for three 2x2 matrices.
+    // Assign values to A and B, and calculate C = A + B.
+    // deallocate memory, and do it looooads of times.
     for (int n=0; n<50000000; n++)
     {
         int rows=2, cols=2;
