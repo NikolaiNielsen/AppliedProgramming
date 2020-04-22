@@ -30,28 +30,37 @@ int main(int argc, char *argv[])
     read_file.close();
 
     int ans;
+    std::ofstream write_output; // Declare the ofstream, but don't open it yet.
+
+
     if (exists)
     {
+        // If the file exists, we prompt the user
         std::cout << "file already exists. Erase (1) or append (2)?\n";
         std::cin >> ans;
-    }
 
-    std::ofstream write_output; // Declare the ofstream, but don't open it yet.
-    if (ans == 1)
-    {
-        std::cout << "Erasing\n";
-        write_output.open("x_and_y.dat"); // open the ofstream in erase mode
+        if (ans == 1)
+        {
+            std::cout << "Erasing\n";
+            write_output.open("x_and_y.dat");
+            // open the ofstream in erase mode
+        }
+        else if (ans == 2)
+        {
+            std::cout << "Appending\n";
+            write_output.open("x_and_y.dat", std::ios::app); // append
+        }
+        else
+        {
+            std::cout << "Didn't recognize. Erasing. \n";
+            write_output.open("x_and_y.dat"); // erase
+        }
     }
-    else if (ans == 2)
-    {
-        std::cout << "Appending\n";
-        write_output.open("x_and_y.dat", std::ios::app); // append
+    else {
+        // if the file doesn't exist we just forge ahead.
+        write_output.open("x_and_y.dat");
     }
-    else
-    {
-        std::cout << "Didn't recognize. Erasing. \n";
-        write_output.open("x_and_y.dat"); // erase
-    }
+    
 
     write_output.setf(std::ios::scientific);    // 3.1.3
     write_output.setf(std::ios::showpos);       // 3.1.3
