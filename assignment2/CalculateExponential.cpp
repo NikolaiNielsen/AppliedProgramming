@@ -24,7 +24,7 @@ void Add(ComplexNumber **res, ComplexNumber **A, ComplexNumber **B)
     {
         for (int j = 0; j < N; j++)
         {
-            res[i][j] = A[i][j] * B[i][j];
+            res[i][j] = A[i][j] + B[i][j];
         }
     }
 }
@@ -37,7 +37,7 @@ void Divide(ComplexNumber **res, ComplexNumber **A, double B)
         for (int j = 0; j < N; j++)
         {
             res[i][j] = ComplexNumber(A[i][j].GetRealPart()/B,
-                                      A[i][j].GetImaginaryPart());
+                                      A[i][j].GetImaginaryPart()/B);
         }
     }
 }
@@ -63,19 +63,40 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
         res[i][i] = ComplexNumber(1);
     }
 
-    for (int i=1; i<nMax; i++)
-    {
-        std::cout << i << "\n";
-        ComplexNumber **temp = new ComplexNumber *[3];
-        for (int i = 0; i < 3; i++)
-        {
-            temp[i] = new ComplexNumber[3];
-            temp[i][0] = ComplexNumber();
-            temp[i][1] = ComplexNumber();
-            temp[i][2] = ComplexNumber();
-        }
-        ComplexPower(temp, A, i);
-        Divide(temp, temp, tgamma(i+1));
-        Add(res, res, temp);
-    }
+    Divide(res, A, 2);
+
+    // for (int i=1; i<=nMax; i++)
+    // {
+    //     ComplexNumber **temp = new ComplexNumber *[3];
+    //     for (int i = 0; i < 3; i++)
+    //     {
+    //         temp[i] = new ComplexNumber[3];
+    //     }
+
+    //     std::cout << "TEMP MATRIX. N = " << i << "\nSTARTING VALUE\n";
+    //     int size = 3;
+    //     for (int i = 0; i < size; i++)
+    //     {
+    //         for (int j = 0; j < size; j++)
+    //         {
+    //             std::cout << temp[i][j] << " ";
+    //         }
+    //         std::cout << std::endl;
+    //     }
+
+
+    //     ComplexPower(temp, A, i);
+    //     std::cout << "POWER\n";
+    //     for (int i = 0; i < size; i++)
+    //     {
+    //         for (int j = 0; j < size; j++)
+    //         {
+    //             std::cout << temp[i][j] << " ";
+    //         }
+    //         std::cout << std::endl;
+    //     }
+
+    //     Divide(temp, temp, tgamma(i+1));
+    //     Add(res, res, temp);
+    // }
 }
