@@ -54,18 +54,18 @@ void ComplexPower(ComplexNumber **res, ComplexNumber **A, int N)
 
 void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
 {
-    ComplexNumber **res0 = new ComplexNumber *[3];
     for (int i = 0; i < 3; i++)
     {
-        res0[i] = new ComplexNumber[3];
-        res0[i][0] = ComplexNumber();
-        res0[i][1] = ComplexNumber();
-        res0[i][2] = ComplexNumber();
-        res0[i][i] = ComplexNumber(1);
+        res[i] = new ComplexNumber[3];
+        res[i][0] = ComplexNumber();
+        res[i][1] = ComplexNumber();
+        res[i][2] = ComplexNumber();
+        res[i][i] = ComplexNumber(1);
     }
-    res = res0;
+
     for (int i=1; i<nMax; i++)
     {
+        std::cout << i << "\n";
         ComplexNumber **temp = new ComplexNumber *[3];
         for (int i = 0; i < 3; i++)
         {
