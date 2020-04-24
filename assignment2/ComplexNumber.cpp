@@ -132,3 +132,18 @@ ComplexNumber::ComplexNumber(double real)
     mRealPart = real;
     mImaginaryPart = 0.0;
 }
+ComplexNumber ComplexNumber::CalculateConjugate() const
+{
+    return ComplexNumber(mRealPart, -mImaginaryPart);
+}
+void ComplexNumber::SetConjugate()
+{
+    mImaginaryPart = -mImaginaryPart;
+}
+ComplexNumber ComplexNumber::operator*(const ComplexNumber& z) const
+{
+    // (a+ib)(c+id) = (ac-bd) + i (ad+bc)
+    double NewReal, NewImag;
+    NewReal = mRealPart*z.GetRealPart() - mImaginaryPart*z.GetImaginaryPart();
+    NewImag = mRealPart*z.GetImaginaryPart() + mImaginaryPart*z.GetRealPart();
+}
