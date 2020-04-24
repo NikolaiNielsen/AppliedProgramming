@@ -146,4 +146,5 @@ ComplexNumber ComplexNumber::operator*(const ComplexNumber& z) const
     double NewReal, NewImag;
     NewReal = mRealPart*z.GetRealPart() - mImaginaryPart*z.GetImaginaryPart();
     NewImag = mRealPart*z.GetImaginaryPart() + mImaginaryPart*z.GetRealPart();
+    return ComplexNumber(NewReal, NewImag);
 }
