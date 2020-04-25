@@ -35,20 +35,8 @@ int main(int argc, char *argv[])
     {
         res[i] = new ComplexNumber[3];
     }
-    
-    CalculateExponential(z, power, res);
 
-    // int N = 3;
-    // for (int i = 0; i < N; i++)
-    // {
-    //     for (int j = 0; j < N; j++)
-    //     {
-    //         for (int k = 0; k < N; k++)
-    //         {
-    //             res[i][j] = res[i][j] + z[i][k] * z[k][j];
-    //         }
-    //     }
-    // }
+    CalculateExponential(z, power, res);
 
     int size = 3;
     for (int i = 0; i < size; i++)
