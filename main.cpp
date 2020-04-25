@@ -20,15 +20,19 @@ int main(int argc, char *argv[])
     // std::cout << "z5 = " << z5 << "\n";
 
     // EXERCISE 6.1.7
-    int power = atoi(argv[1]);
+    int power = 100;
     ComplexNumber **z = new ComplexNumber*[3];
     for (int i = 0; i < 3; i++)
     {
         z[i] = new ComplexNumber[3];
-        z[i][0] = ComplexNumber(i * 3 + 1, i);
-        z[i][1] = ComplexNumber(i * 3 + 2, i);
-        z[i][2] = ComplexNumber(i * 3 + 3, i);
+        z[i][0] = ComplexNumber(0);
+        z[i][1] = ComplexNumber(0);
+        z[i][2] = ComplexNumber(0);
     }
+    z[0][1] = ComplexNumber(1);
+    z[1][0] = ComplexNumber(1);
+    z[1][2] = ComplexNumber(0, -1);
+    z[2][1] = ComplexNumber(0, 1);
 
     ComplexNumber **res = new ComplexNumber *[3];
     for (int i = 0; i < 3; i++)
@@ -47,6 +51,10 @@ int main(int argc, char *argv[])
         }
         std::cout << std::endl;
     }
+    // According to maple this should be
+    // (1.589091778, 1.368298872, 0.5890917783 i)
+    // (1.368298872, 2.178183557, 1.368298872 i)
+    // (-0.5890917783i, -1.368298872i, 1.589091778)
 
     return 0;
 }
