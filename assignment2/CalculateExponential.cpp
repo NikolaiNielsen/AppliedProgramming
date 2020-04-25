@@ -81,7 +81,6 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
     // Make sure the arrays we need are empty
     ComplexNumber **current = new ComplexNumber *[3];
     ComplexNumber **last = new ComplexNumber *[3];
-
     for (int i = 0; i < 3; i++)
     {
         current[i] = new ComplexNumber[3];
@@ -92,5 +91,41 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
             current[i][j] = ComplexNumber();
             last[i][j] = ComplexNumber();
         }
+        // Make res an identity matrix - the 0th order term
+        res[i][i] = ComplexNumber(1);
     }
+
+    // add first order term - it's safe to use the result as input as well, as
+    // "future" elements aren't changed
+    Add(res, res, A);
+    last = A;
+    for (int n=2; n<nMax; n++)
+    {
+        // multiply the last term by A. Then divide by n to get the current
+        // term.
+        Multiply(current, last, A);
+        Divide(current, current, n);
+
+        // Add it to the result and assign it to last.
+        Add(res, res, current);
+        last = current;
+
+        // clear current for next iteration
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                current[i][j] = ComplexNumber();
+            }
+        }
+    }
+
+    // Remember to deallocate the temporary arrays!
+    for (int i=0; i<3; i++)
+    {
+        delete[] last[i];
+        delete[] current[i];
+    }
+    delete[] last;
+    delete[] current;
 }
