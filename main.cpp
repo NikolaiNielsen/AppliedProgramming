@@ -22,8 +22,10 @@ int main(int argc, char *argv[])
     // EXERCISE 6.1.7
     int power = 100;
     ComplexNumber **z = new ComplexNumber*[3];
+    ComplexNumber **res = new ComplexNumber *[3];
     for (int i = 0; i < 3; i++)
     {
+        res[i] = new ComplexNumber[3];
         z[i] = new ComplexNumber[3];
         z[i][0] = ComplexNumber(0);
         z[i][1] = ComplexNumber(0);
@@ -34,15 +36,19 @@ int main(int argc, char *argv[])
     z[1][2] = ComplexNumber(0, -1);
     z[2][1] = ComplexNumber(0, 1);
 
-    ComplexNumber **res = new ComplexNumber *[3];
-    for (int i = 0; i < 3; i++)
-    {
-        res[i] = new ComplexNumber[3];
-    }
-
     CalculateExponential(z, power, res);
 
     int size = 3;
+    std::cout << "z:\n";
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            std::cout << z[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "exp(z) for nMax=100:\n";
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
