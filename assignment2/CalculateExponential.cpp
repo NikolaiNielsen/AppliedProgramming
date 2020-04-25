@@ -43,28 +43,6 @@ void Divide(ComplexNumber **res, ComplexNumber **A, double B)
     }
 }
 
-void ComplexPower(ComplexNumber **res, ComplexNumber **A, int N)
-{
-    res = A;
-    for (int i=1; i<N; i++)
-    {
-        Multiply(res, res, A);
-    }
-}
-
-int factorial(int n)
-{
-    assert (n >= 0);
-    if ((n==0) or (n==1))
-    {
-        return 1;
-    }
-    else
-    {
-        return factorial(n-1);
-    }
-}
-
 
 void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
 {
@@ -77,6 +55,8 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
     // Start with the first two terms (n=0, n=1): I + A, and set "last" to "A".
     // calculate the current term and add it to the result. Copy it to last
     // term, and empty out the current term. Increment n and go again.
+
+    int size=3;
 
     // Make sure the arrays we need are empty
     ComplexNumber **current = new ComplexNumber *[3];
@@ -98,34 +78,82 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
     // add first order term - it's safe to use the result as input as well, as
     // "future" elements aren't changed
     Add(res, res, A);
-    last = A;
-    for (int n=2; n<nMax; n++)
+
+    // Set elements of last equal to those of A.
+    for (int i = 0; i < 3; i++)
     {
+        for (int j = 0; j < 3; j++)
+        {
+            last[i][j] = ComplexNumber(A[i][j]);
+        }
+    }
+    for (int n=2; n<=nMax; n++)
+    {
+        std::cout << "iterating. n=" << n << "\nLast is\n";
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                std::cout << last[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << "Current is\n";
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                std::cout << current[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
         // multiply the last term by A. Then divide by n to get the current
         // term.
         Multiply(current, last, A);
+        std::cout << "After multiplying last by A, current is:\n";
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                std::cout << current[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+
         Divide(current, current, n);
+
+        std::cout << "After dividing, current is:\n";
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                std::cout << current[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
 
         // Add it to the result and assign it to last.
         Add(res, res, current);
-        last = current;
 
         // clear current for next iteration
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
+                last[i][j] = ComplexNumber(current[i][j]);
                 current[i][j] = ComplexNumber();
             }
         }
     }
 
-    // Remember to deallocate the temporary arrays!
-    for (int i=0; i<3; i++)
-    {
-        delete[] last[i];
-        delete[] current[i];
-    }
-    delete[] last;
-    delete[] current;
+    // Remember to deallocate the temporary arrays! THIS THROWS AN ERROR WHEN
+    // RUN:
+    // "free(): double free detected in tcache 2"
+    // for (int i=0; i<3; i++)
+    // {
+    //     delete[] last[i];
+    //     delete[] current[i];
+    // }
+    // delete[] last;
+    // delete[] current;
 }
