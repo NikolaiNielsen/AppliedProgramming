@@ -56,8 +56,6 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
     // calculate the current term and add it to the result. Copy it to last
     // term, and empty out the current term. Increment n and go again.
 
-    int size=3;
-
     // Make sure the arrays we need are empty
     ComplexNumber **current = new ComplexNumber *[3];
     ComplexNumber **last = new ComplexNumber *[3];
@@ -87,50 +85,14 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
             last[i][j] = ComplexNumber(A[i][j]);
         }
     }
+
+    // Main calculation for nMax>1
     for (int n=2; n<=nMax; n++)
     {
-        std::cout << "iterating. n=" << n << "\nLast is\n";
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                std::cout << last[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
-        std::cout << "Current is\n";
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                std::cout << current[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
         // multiply the last term by A. Then divide by n to get the current
         // term.
         Multiply(current, last, A);
-        std::cout << "After multiplying last by A, current is:\n";
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                std::cout << current[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
-
         Divide(current, current, n);
-
-        std::cout << "After dividing, current is:\n";
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                std::cout << current[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
 
         // Add it to the result and assign it to last.
         Add(res, res, current);
@@ -146,14 +108,12 @@ void CalculateExponential(ComplexNumber **A, int nMax, ComplexNumber **res)
         }
     }
 
-    // Remember to deallocate the temporary arrays! THIS THROWS AN ERROR WHEN
-    // RUN:
-    // "free(): double free detected in tcache 2"
-    // for (int i=0; i<3; i++)
-    // {
-    //     delete[] last[i];
-    //     delete[] current[i];
-    // }
-    // delete[] last;
-    // delete[] current;
+    // Remember to deallocate the temporary arrays!
+    for (int i=0; i<3; i++)
+    {
+        delete[] last[i];
+        delete[] current[i];
+    }
+    delete[] last;
+    delete[] current;
 }
