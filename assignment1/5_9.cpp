@@ -4,7 +4,8 @@
 
 void solve3by3(double **A, double *b, double *u){
     // Solve a 3 by 3 system. Use LU decomposition and back/forward-substitution
-    
+    // Au=b becomes LUu=b.
+
     // Number of equations:
     int n=3;
     
@@ -25,7 +26,7 @@ void solve3by3(double **A, double *b, double *u){
         }
     }
 
-    // Forward substitution
+    // Forward substitution to solve Ly=b, where y=Uu.
     for (int j=0; j<n; j++){
         // Make sure we don't have a singular L matrix
         assert(A[j][j] != 0);
@@ -35,7 +36,7 @@ void solve3by3(double **A, double *b, double *u){
         }
     }
 
-    // Back substitution
+    // Back substitution to solve Uu = y and get final u.
     for (int j=n-1; j>=0; j--){
         u[j] = y[j] / A[j][j];
         for (int i=0; i<j; i++){
