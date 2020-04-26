@@ -2,8 +2,8 @@
 #include <cmath>
 
 void guassian_elimination(double **A, double *b, double *u, int n){
-    // Solve a n by n system. Use LU decomposition, pivoting and back substitution.
-    
+    // Solve a n by n system. Use LU decomposition, pivoting and back
+    // substitution.
     
     // Create intermediary values
     double swap;
@@ -14,7 +14,6 @@ void guassian_elimination(double **A, double *b, double *u, int n){
     // Lower diagonal part makes up L, which has an implicit diagonal of 1
     for (int k=0; k<n-1; k++){
         // Find pivot
-        // std::cout << "LU Decomp. k = " << k << "\n";
         current_max = fabs(A[k][k]);
         current_row = k;
         for (int p=k; p<n; p++){
@@ -25,7 +24,6 @@ void guassian_elimination(double **A, double *b, double *u, int n){
         }
         // perform pivot if needed
         if (current_row != k) {
-            // std::cout << "swap rows " << k << " and " << current_row << "\n";
             // Permute A
             for (int p=k; p<n; p++){
                 swap = A[current_row][p];
@@ -50,20 +48,6 @@ void guassian_elimination(double **A, double *b, double *u, int n){
                 A[i][j] = A[i][j] - A[i][k]*A[k][j];
             }
         }
-
-        // Stuff for debugging
-        // std::cout << "New, permuted matrix:\n";
-        // for (int i=0; i<n; i++){
-        //     for (int j=0; j<n; j++){
-        //         std::cout << A[i][j] << ", ";
-        //     }
-        //     std::cout << "\n";
-        // }
-        // std::cout << "And b:\n";
-        // for (int i=0; i<n; i++){
-        //     std::cout << b[i] << ", ";
-        // }
-        // std::cout << "\n";
     }
 
     // Solution obtained by back-substitution with Ux=b'
