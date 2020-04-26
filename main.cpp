@@ -11,11 +11,15 @@ int main()
     double initialGuess = 0;
     double epsilon = 0.001; 
     double x = newton_Raphson(initialGuess, epsilon);
+    std::cout << "2_6. Initial guess: 0, final root:\n";
     std::cout << x << "\n";
     
+    std::cout << "3_3 has no output\n";
     int n = 100;
     implicit_Euler(n);
 
+    std::cout << "5_4. Calculate mean and standard deviation of "
+              << "[1, 2, 3, 4, 5]\n";
     double a[5] = {5.0, 4.0, 3.0, 2.0, 1.0};
     int length = 5;
     double mean = calc_mean(a, length);
@@ -23,6 +27,7 @@ int main()
     std::cout << mean << "\n";
     std::cout << std_data << "\n";
 
+    std::cout << "5_3. Swap poninter and references:\n";
     double c = 1.0;
     double b = 2.0;
     std::cout << c << "," << b << "\n";
@@ -30,6 +35,9 @@ int main()
     swap_ref(c, b);
     std:: cout << c << "," << b << "\n";
 
+
+    std::cout << "multiply a row vector by a matrix.\n" << "(4, 7, 9) times\n"
+              << "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n";
     double res [3] = {};
     double A [] = {4,7,9};
     double** B = new double*[3];
@@ -43,11 +51,14 @@ int main()
     int BCols = 3;
     int BRows = 3;
     Multiply(res,A,B,ACols,BRows,BCols);
+    std::cout << "The result is:\n";
     for (int i=0; i < (sizeof(res)/sizeof(*res)); i++){
        std::cout << res[i] << "\n";
     }
     std::cout << "\n";
 
+    std::cout << "5_10. Gaussian elimination.\nA=[[1,2,3],[1,2,4],[7,8,3]]\n"
+              << "B=[1, 2, 1].\n";
     double u [3] = {};
     double Bv [] = {1,2,1};
     double** Am  = new double*[3];
@@ -65,6 +76,8 @@ int main()
     Am[2][2] = 3;
 
     guassian_elimination(Am, Bv, u, 3);
+
+    std::cout << "result is:\n";
     for (int i=0; i < (sizeof(u)/sizeof(*u)); i++){
        std::cout << u[i] << "\n";
     }
