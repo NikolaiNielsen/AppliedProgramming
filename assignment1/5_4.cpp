@@ -1,14 +1,17 @@
 #include <iostream>
 #include <cmath>
+#include <cassert>
 #include "5_4.h"
 
 
 double calc_std(double a[], int length){
     // Calculates the standard deviation of a vector "a" of length "length"
     double mean = calc_mean(a, length);
-    if (length == 1) {
-        return 0.0;
-    }
+
+    // Make sure we don't divide by zero when taking unbiased standard
+    // deviation.
+    assert(length>1);
+
     double std = 0;
     for (int i=0; i<length; i++){
         std += pow(a[i] - mean, 2);
