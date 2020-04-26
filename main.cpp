@@ -1,66 +1,73 @@
 #include <iostream>
-#include "assignment2/ComplexNumber.hpp"
-#include "assignment2/CalculateExponential.hpp"
+#include "./assignment1/2_6.h"
+#include "./assignment1/3_3.h"
+#include "./assignment1/5_4.h"
+#include "./assignment1/5_3.h"
+#include "./assignment1/5_6.h"
+#include "./assignment1/5_10.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-    // EXERCISE 6.1.1-6.1.6
-    // ComplexNumber z(1, 1), z2(2);
-    // ComplexNumber z3(z);
-    // std::cout << "z2 = " << z2 << ". z3 = " << z3 << "\n";
-    // std::cout << "Real part of z2: " << z2.GetRealPart() 
-    //           << ". Imaginary part: " << z2.GetImaginaryPart() << "\n";
-    // std::cout << "Real part of z2: " << RealPart(z2) << ". Imaginary part: "
-    //           << ImaginaryPart(z2) << "\n";
-    // ComplexNumber z4 = z3.CalculateConjugate();
-    // std::cout << "z4 = " << z4 << "\n";
-    // z4.SetConjugate();
-    // std::cout << "z4 = " << z4 << "\n";
-    // ComplexNumber z5 = z3*z4.CalculateConjugate();
-    // std::cout << "z5 = " << z5 << "\n";
+    double initialGuess = 0;
+    double epsilon = 0.001; 
+    double x = newton_Raphson(initialGuess, epsilon);
+    std::cout << x << "\n";
+    
+    int n = 100;
+    implicit_Euler(n);
 
-    // EXERCISE 6.1.7
-    int power = 100;
-    ComplexNumber **z = new ComplexNumber*[3];
-    ComplexNumber **res = new ComplexNumber *[3];
-    for (int i = 0; i < 3; i++)
-    {
-        res[i] = new ComplexNumber[3];
-        z[i] = new ComplexNumber[3];
-        z[i][0] = ComplexNumber(0);
-        z[i][1] = ComplexNumber(0);
-        z[i][2] = ComplexNumber(0);
+    double a[5] = {5.0, 4.0, 3.0, 2.0, 1.0};
+    int length = 5;
+    double mean = calc_mean(a, length);
+    double std_data = calc_std(a, length);
+    std::cout << mean << "\n";
+    std::cout << std_data << "\n";
+
+    double c = 1.0;
+    double b = 2.0;
+    std::cout << c << "," << b << "\n";
+    swap_pointer(&c, &b);
+    swap_ref(c, b);
+    std:: cout << c << "," << b << "\n";
+
+    double res [3] = {};
+    double A [] = {4,7,9};
+    double** B = new double*[3];
+    for (int i = 0; i < 3; i++){
+        B[i] = new double[3];
+	B[i][0] = i * 3 + 1;
+	B[i][1] = i * 3 + 2;
+	B[i][2] = i * 3 + 3;
+    } 
+    int ACols = 3;
+    int BCols = 3;
+    int BRows = 3;
+    Multiply(res,A,B,ACols,BRows,BCols);
+    for (int i=0; i < (sizeof(res)/sizeof(*res)); i++){
+       std::cout << res[i] << "\n";
     }
-    z[0][1] = ComplexNumber(1);
-    z[1][0] = ComplexNumber(1);
-    z[1][2] = ComplexNumber(0, -1);
-    z[2][1] = ComplexNumber(0, 1);
+    std::cout << "\n";
 
-    CalculateExponential(z, power, res);
-
-    int size = 3;
-    std::cout << "z:\n";
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            std::cout << z[i][j] << " ";
-        }
-        std::cout << std::endl;
+    double u [3] = {};
+    double Bv [] = {1,2,1};
+    double** Am  = new double*[3];
+    for (int i = 0; i < 3; i++){
+        Am[i] = new double[3];
     }
-    std::cout << "exp(z) for nMax=100:\n";
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            std::cout << res[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    // According to maple this should be
-    // (1.589091778, 1.368298872, 0.5890917783 i)
-    // (1.368298872, 2.178183557, 1.368298872 i)
-    // (-0.5890917783i, -1.368298872i, 1.589091778)
+    Am[0][0] = 1;
+    Am[0][1] = 2; 
+    Am[0][2] = 3;
+    Am[1][0] = 1;
+    Am[1][1] = 2;
+    Am[1][2] = 4;
+    Am[2][0] = 7;
+    Am[2][1] = 8;
+    Am[2][2] = 3;
 
-    return 0;
+    guassian_elimination(Am, Bv, u, 3);
+    for (int i=0; i < (sizeof(u)/sizeof(*u)); i++){
+       std::cout << u[i] << "\n";
+    }
+    std::cout << "\n";
+
 }
