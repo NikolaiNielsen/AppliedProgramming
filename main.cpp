@@ -2,6 +2,9 @@
 #include "assignment2/ComplexNumber.hpp"
 #include "assignment2/CalculateExponential.hpp"
 #include "assignment2/Matrix2x2.hpp"
+#include "assignment2/Student.hpp"
+#include "assignment2/GraduateStudent.hpp"
+#include "assignment2/PhdStudent.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -36,9 +39,7 @@ int main(int argc, char *argv[])
     // z[1][0] = ComplexNumber(1);
     // z[1][2] = ComplexNumber(0, -1);
     // z[2][1] = ComplexNumber(0, 1);
-
     // CalculateExponential(z, power, res);
-
     // int size = 3;
     // std::cout << "z:\n";
     // for (int i = 0; i < size; i++)
@@ -68,44 +69,48 @@ int main(int argc, char *argv[])
     // std::cout << "Empty matrix z\n";
     // Matrix2x2 z;
     // z.Print();
-
     // std::cout << "proper matrix z2\n";
     // Matrix2x2 z2(1, 2, 3, 4);
     // z2.Print();
-
     // std::cout << "Construct new matrix z3 by passing in z2\n";
     // Matrix2x2 z3(z2);
     // z3.Print();
-
     // std::cout << "Set z = z2. Print z\n";
     // z=z2;
     // z.Print();
-
     // std::cout << "calculate inverse of z2\n";
     // Matrix2x2 zinv = z2.CalcInverse();
     // zinv.Print();
-
     // std::cout << "determinant of z2: " << z2.CalcDeterminant() << "\n";
     // std::cout << "determinant of inverse of z2: " << zinv.CalcDeterminant() 
     //           << "\n";
-
     // std::cout << "z=-z2\n";
     // z = -z2;
     // z.Print();
-
     // std::cout << "z4 = z + z2\n";
     // Matrix2x2 z4 = z + z2;
     // z4.Print();
-
     // std::cout << "z5 = 3*z2\n";
     // Matrix2x2 z5(z2);
     // z5.MultScalar(3);
     // z5.Print();
-
     // std::cout << "z6 = z5-z2\n";
     // Matrix2x2 z6 = z5-z2;
     // z6.Print();
 
+    // 7.1
+    Student stud;
+    Student stud2("stud", 10, 100);
+    stud.print();
+    stud2.print();
+
+    GraduateStudent gstud;
+    GraduateStudent gstud2("stud2", 10, 100, true);
+    gstud.print();
+    gstud2.print();
+
+    PhdStudent pstud("stud3", 10, 100, true);
+    pstud.print();
 
     return 0;
 }
