@@ -4,7 +4,7 @@
 void Student::SetLibraryFines(double amount)
 {
     // We cannot have a negative fine - the library doesn't owe you money.
-    assert (amount>0);
+    assert (amount>=0);
     library_fines = amount;
 }
 
@@ -37,7 +37,7 @@ double Student::MoneyOwed() const
 
 void Student::print() const
 {
-    std::cout << "Student.\n"
+    std::cout << "Student."
               << "\nname: " << name
               << "\ntuition fees: " << tuition_fees
               << "\nlibrary fines: " << library_fines

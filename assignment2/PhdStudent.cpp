@@ -25,7 +25,7 @@ double PhdStudent::MoneyOwed() const
 
 void PhdStudent::print() const
 {
-    std::cout << "Phd Student.\n"
+    std::cout << "Phd Student."
               << "\nname: " << name
               << "\ntuition fees: " << tuition_fees
               << "\nlibrary fines: " << GetLibraryFines()
