@@ -7,6 +7,7 @@ class PhdStudent : public GraduateStudent {
 public:
 	PhdStudent(std::string name, double fines, double fees, bool fullTime);
 	virtual double MoneyOwed() const;
+    virtual void print() const;
 };
 
 

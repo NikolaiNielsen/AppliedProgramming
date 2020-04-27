@@ -11,7 +11,7 @@ public:
 	GraduateStudent(std::string name, double fines, double fees, bool fullTime);
 	bool fullTime;
 	virtual double MoneyOwed() const;
-
+    virtual void print() const;
 };
 
 
