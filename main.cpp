@@ -5,6 +5,7 @@
 #include "assignment2/Student.hpp"
 #include "assignment2/GraduateStudent.hpp"
 #include "assignment2/PhdStudent.hpp"
+#include "assignment2/Exercise82.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -98,19 +99,20 @@ int main(int argc, char *argv[])
     // Matrix2x2 z6 = z5-z2;
     // z6.Print();
 
-    // 7.1
-    Student stud;
-    Student stud2("stud", 10, 100);
-    stud.print();
-    stud2.print();
+    // // 7.1
+    // Student stud;
+    // Student stud2("stud", 10, 100);
+    // stud.print();
+    // stud2.print();
+    // GraduateStudent gstud;
+    // GraduateStudent gstud2("stud2", 10, 100, true);
+    // gstud.print();
+    // gstud2.print();
+    // PhdStudent pstud("stud3", 10, 100, true);
+    // pstud.print();
 
-    GraduateStudent gstud;
-    GraduateStudent gstud2("stud2", 10, 100, true);
-    gstud.print();
-    gstud2.print();
 
-    PhdStudent pstud("stud3", 10, 100, true);
-    pstud.print();
-
+    std::cout << CalcAbs<int>(-3) << " " << CalcAbs<int>(3) << "\n";
+    std::cout << CalcAbs<double>(-3.1) << " " << CalcAbs<double>(3.31) << "\n";
     return 0;
 }

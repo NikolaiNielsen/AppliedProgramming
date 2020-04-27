@@ -3,7 +3,12 @@
 
 template<typename T>
 T CalcAbs(T val) {
-	// fill this out
+	T res = val;
+    if (val < 0)
+    {
+        res = -res;
+    }
+    return res;
 }
 
 
