@@ -6,6 +6,9 @@
 #include "assignment2/GraduateStudent.hpp"
 #include "assignment2/PhdStudent.hpp"
 #include "assignment2/Exercise82.hpp"
+#include "assignment2/Exception.hpp"
+#include "assignment2/FileNotOpenException.hpp"
+#include "assignment2/OutOfRangeException.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -111,8 +114,58 @@ int main(int argc, char *argv[])
     // PhdStudent pstud("stud3", 10, 100, true);
     // pstud.print();
 
+    // 8.2
+    // std::cout << CalcAbs<int>(-3) << " " << CalcAbs<int>(3) << "\n";
+    // std::cout << CalcAbs<double>(-3.1) << " " << CalcAbs<double>(3.31)
+    //           << "\n";
 
-    std::cout << CalcAbs<int>(-3) << " " << CalcAbs<int>(3) << "\n";
-    std::cout << CalcAbs<double>(-3.1) << " " << CalcAbs<double>(3.31) << "\n";
+
+    // 9.1
+    // Write a catch block which is able to catch a generic exception but can
+    // also differentiate between these two types of errors.
+
+    // Well, the differentiator is the tag - either FILE or RANGE. So we just
+    // check the tag.
+    for (int i=0; i<10; i++)
+    {
+        std::cout << "EXCEPTION NUMBER "<<i<<"\n";
+        try
+        {
+            // do stuff
+            int val = rand() % 3;
+            if (val == 1)
+            {
+                // Throw an out of range exception
+                std::cout << "Sending out of range\n";
+                throw(OutOfRangeException("You're out of range dummy"));
+            }
+            else if (val == 2)
+            {
+                std::cout << "Sending File not open\n";
+                throw(FileNotOpenException("File's not open, dummy"));
+            }
+            else
+            {
+                std::cout << "throwing generic exception\n";
+                throw(Exception("GENERIC", "A generic problem"));
+            }
+        }
+        catch (FileNotOpenException &error)
+        {
+            std::cout << "File not found error!\n";
+            error.PrintDebug();
+        }
+        catch (OutOfRangeException &error)
+        {
+            std::cout << "Out of range exception!\n";
+            error.PrintDebug();
+        }
+        catch (Exception &error)
+        {
+            std::cout << "Generic Exception!\n";
+            error.PrintDebug();
+        }
+        std::cout << "\n";
+    }
     return 0;
 }
