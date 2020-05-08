@@ -3,44 +3,71 @@
 #include <cassert>
 
 void solve3by3(double **A, double *b, double *u){
-    // Solve a 3 by 3 system. Use LU decomposition and back/forward-substitution
-    // Au=b becomes LUu=b.
+    // Solve a n by n system. Use LU decomposition, pivoting and back
+    // substitution.
 
-    // Number of equations:
+    // Create intermediary values
+    double swap;
+    double current_max;
+    int current_row;
     int n=3;
-    
-    // Create intermediary matrices and vectors
-    double y[n];
 
     // LU-decomposition. Diagonal and superdiagonal of modified A construct U.
     // Lower diagonal part makes up L, which has an implicit diagonal of 1
-    for (int k=0; k<n-1; k++){
-        assert(A[k][k] != 0);
-        for (int i=k+1; i<n; i++){
-            A[i][k] = A[i][k]/A[k][k];
+    for (int k = 0; k < n - 1; k++)
+    {
+        // Find pivot
+        current_max = fabs(A[k][k]);
+        current_row = k;
+        for (int p = k; p < n; p++)
+        {
+            if (fabs(A[p][k]) > current_max)
+            {
+                current_max = fabs(A[p][k]);
+                current_row = p;
+            }
         }
-        for (int j=k+1; j<n; j++){
-            for (int i=k+1; i<n; i++){
-                A[i][j] = A[i][j] - A[i][k]*A[k][j];
+        // perform pivot if needed
+        if (current_row != k)
+        {
+            // Permute A
+            for (int p = k; p < n; p++)
+            {
+                swap = A[current_row][p];
+                A[current_row][p] = A[k][p];
+                A[k][p] = swap;
+            }
+
+            // Permute b
+            swap = b[current_row];
+            b[current_row] = b[k];
+            b[k] = swap;
+        }
+
+        // subdiagonals of L
+        for (int i = k + 1; i < n; i++)
+        {
+            A[i][k] = A[i][k] / A[k][k];
+        }
+        // Update U and b. Corresponds to elementary elimination matrices
+        for (int j = k + 1; j < n; j++)
+        {
+            b[j] = b[j] - b[k] * A[j][k];
+            for (int i = k + 1; i < n; i++)
+            {
+                A[i][j] = A[i][j] - A[i][k] * A[k][j];
             }
         }
     }
 
-    // Forward substitution to solve Ly=b, where y=Uu.
-    for (int j=0; j<n; j++){
-        // Make sure we don't have a singular L matrix
-        assert(A[j][j] != 0);
-        y[j] = b[j]; // We don't divide by diagonal element of A, since that is a part of U, and we know L[j][j] == 0.
-        for (int i=j+1; i<3; i++){
-            b[i] = b[i] - A[i][j]*y[j];
-        }
-    }
-
-    // Back substitution to solve Uu = y and get final u.
-    for (int j=n-1; j>=0; j--){
-        u[j] = y[j] / A[j][j];
-        for (int i=0; i<j; i++){
-            y[i] = y[i] - A[i][j]*u[j];
+    // Solution obtained by back-substitution with Ux=b'
+    // where b' is permuted and transformed b
+    for (int j = n - 1; j >= 0; j--)
+    {
+        u[j] = b[j] / A[j][j];
+        for (int i = 0; i < j; i++)
+        {
+            b[i] = b[i] - A[i][j] * u[j];
         }
     }
 }
