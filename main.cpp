@@ -1,171 +1,86 @@
 #include <iostream>
-#include "assignment2/ComplexNumber.hpp"
-#include "assignment2/CalculateExponential.hpp"
-#include "assignment2/Matrix2x2.hpp"
-#include "assignment2/Student.hpp"
-#include "assignment2/GraduateStudent.hpp"
-#include "assignment2/PhdStudent.hpp"
-#include "assignment2/Exercise82.hpp"
-#include "assignment2/Exception.hpp"
-#include "assignment2/FileNotOpenException.hpp"
-#include "assignment2/OutOfRangeException.hpp"
+#include "./assignment1/2_6.h"
+#include "./assignment1/3_3.h"
+#include "./assignment1/5_4.h"
+#include "./assignment1/5_3.h"
+#include "./assignment1/5_6.h"
+#include "./assignment1/5_10.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-    // EXERCISE 6.1.1-6.1.6
-    ComplexNumber z(1, 1), z2(2);
-    ComplexNumber z3(z);
-    std::cout << "z2 = " << z2 << ". z3 = " << z3 << "\n";
-    std::cout << "Real part of z2: " << z2.GetRealPart() 
-              << ". Imaginary part: " << z2.GetImaginaryPart() << "\n";
-    std::cout << "Real part of z2: " << RealPart(z2) << ". Imaginary part: "
-              << ImaginaryPart(z2) << "\n";
-    ComplexNumber z4 = z3.CalculateConjugate();
-    std::cout << "z4 = " << z4 << "\n";
-    z4.SetConjugate();
-    std::cout << "z4 = " << z4 << "\n";
-    ComplexNumber z5 = z3*z4.CalculateConjugate();
-    std::cout << "z5 = " << z5 << "\n";
-
-    // EXERCISE 6.1.7
-    int power = 100;
-    ComplexNumber **z6 = new ComplexNumber*[3];
-    ComplexNumber **res = new ComplexNumber *[3];
-    for (int i = 0; i < 3; i++)
-    {
-        res[i] = new ComplexNumber[3];
-        z6[i] = new ComplexNumber[3];
-        z6[i][0] = ComplexNumber(0);
-        z6[i][1] = ComplexNumber(0);
-        z6[i][2] = ComplexNumber(0);
-    }
-    z6[0][1] = ComplexNumber(1);
-    z6[1][0] = ComplexNumber(1);
-    z6[1][2] = ComplexNumber(0, -1);
-    z6[2][1] = ComplexNumber(0, 1);
-    CalculateExponential(z6, power, res);
-    int size = 3;
-    std::cout << "z:\n";
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            std::cout << z6[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "exp(z) for nMax=100:\n";
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            std::cout << res[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    // According to maple this should be
-    // (1.589091778, 1.368298872, 0.5890917783 i)
-    // (1.368298872, 2.178183557, 1.368298872 i)
-    // (-0.5890917783i, -1.368298872i, 1.589091778)
+    double initialGuess = 0;
+    double epsilon = 0.001; 
+    double x = newton_Raphson(initialGuess, epsilon);
+    std::cout << "2_6. Initial guess: 0, final root:\n";
+    std::cout << x << "\n";
     
+    std::cout << "3_3 has no output\n";
+    int n = 100;
+    implicit_Euler(n);
 
-    // 6.2. 2-by-2 matrices.
-    std::cout << "Empty matrix z\n";
-    Matrix2x2 zmat;
-    zmat.Print();
-    std::cout << "proper matrix z2\n";
-    Matrix2x2 zmat2(1, 2, 3, 4);
-    zmat2.Print();
-    std::cout << "Construct new matrix z3 by passing in z2\n";
-    Matrix2x2 zmat3(zmat2);
-    zmat3.Print();
-    std::cout << "Set z = z2. Print z\n";
-    zmat=zmat2;
-    zmat.Print();
-    std::cout << "calculate inverse of z2\n";
-    Matrix2x2 zinv = zmat2.CalcInverse();
-    zinv.Print();
-    std::cout << "determinant of z2: " << zmat2.CalcDeterminant() << "\n";
-    std::cout << "determinant of inverse of z2: " << zinv.CalcDeterminant() 
-              << "\n";
-    std::cout << "z=-z2\n";
-    zmat = -zmat2;
-    zmat.Print();
-    std::cout << "z4 = z + z2\n";
-    Matrix2x2 zmat4 = zmat + zmat2;
-    zmat4.Print();
-    std::cout << "z5 = 3*z2\n";
-    Matrix2x2 zmat5(zmat2);
-    zmat5.MultScalar(3);
-    zmat5.Print();
-    std::cout << "z6 = z5-z2\n";
-    Matrix2x2 zmat6 = zmat5-zmat2;
-    zmat6.Print();
+    std::cout << "5_4. Calculate mean and standard deviation of "
+              << "[1, 2, 3, 4, 5]\n";
+    double a[5] = {5.0, 4.0, 3.0, 2.0, 1.0};
+    int length = 5;
+    double mean = calc_mean(a, length);
+    double std_data = calc_std(a, length);
+    std::cout << mean << "\n";
+    std::cout << std_data << "\n";
 
-    // 7.1
-    Student stud;
-    Student stud2("stud", 10, 100);
-    stud.print();
-    stud2.print();
-    GraduateStudent gstud;
-    GraduateStudent gstud2("stud2", 10, 100, true);
-    gstud.print();
-    gstud2.print();
-    PhdStudent pstud("stud3", 10, 100, true);
-    pstud.print();
-
-    // 8.2
-    std::cout << CalcAbs<int>(-3) << " " << CalcAbs<int>(3) << "\n";
-    std::cout << CalcAbs<double>(-3.1) << " " << CalcAbs<double>(3.31)
-              << "\n";
+    std::cout << "5_3. Swap poninter and references:\n";
+    double c = 1.0;
+    double b = 2.0;
+    std::cout << c << "," << b << "\n";
+    swap_pointer(&c, &b);
+    swap_ref(c, b);
+    std:: cout << c << "," << b << "\n";
 
 
-    // 9.1
-    // Write a catch block which is able to catch a generic exception but can
-    // also differentiate between these two types of errors.
-
-    // Well, the differentiator is the tag - either FILE or RANGE. So we just
-    // check the tag.
-    for (int i=0; i<10; i++)
-    {
-        std::cout << "EXCEPTION NUMBER "<<i<<"\n";
-        try
-        {
-            // do stuff
-            int val = rand() % 3;
-            if (val == 1)
-            {
-                // Throw an out of range exception
-                std::cout << "Sending out of range\n";
-                throw(OutOfRangeException("You're out of range dummy"));
-            }
-            else if (val == 2)
-            {
-                std::cout << "Sending File not open\n";
-                throw(FileNotOpenException("File's not open, dummy"));
-            }
-            else
-            {
-                std::cout << "throwing generic exception\n";
-                throw(Exception("GENERIC", "A generic problem"));
-            }
-        }
-        catch (FileNotOpenException &error)
-        {
-            std::cout << "File not found error!\n";
-            error.PrintDebug();
-        }
-        catch (OutOfRangeException &error)
-        {
-            std::cout << "Out of range exception!\n";
-            error.PrintDebug();
-        }
-        catch (Exception &error)
-        {
-            std::cout << "Generic Exception!\n";
-            error.PrintDebug();
-        }
-        std::cout << "\n";
+    std::cout << "multiply a row vector by a matrix.\n" << "(4, 7, 9) times\n"
+              << "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n";
+    double res [3] = {};
+    double A [] = {4,7,9};
+    double** B = new double*[3];
+    for (int i = 0; i < 3; i++){
+        B[i] = new double[3];
+	B[i][0] = i * 3 + 1;
+	B[i][1] = i * 3 + 2;
+	B[i][2] = i * 3 + 3;
+    } 
+    int ACols = 3;
+    int BCols = 3;
+    int BRows = 3;
+    Multiply(res,A,B,ACols,BRows,BCols);
+    std::cout << "The result is:\n";
+    for (int i=0; i < (sizeof(res)/sizeof(*res)); i++){
+       std::cout << res[i] << "\n";
     }
-    return 0;
+    std::cout << "\n";
+
+    std::cout << "5_10. Gaussian elimination.\nA=[[1,2,3],[1,2,4],[7,8,3]]\n"
+              << "B=[1, 2, 1].\n";
+    double u [3] = {};
+    double Bv [] = {1,2,1};
+    double** Am  = new double*[3];
+    for (int i = 0; i < 3; i++){
+        Am[i] = new double[3];
+    }
+    Am[0][0] = 1;
+    Am[0][1] = 2; 
+    Am[0][2] = 3;
+    Am[1][0] = 1;
+    Am[1][1] = 2;
+    Am[1][2] = 4;
+    Am[2][0] = 7;
+    Am[2][1] = 8;
+    Am[2][2] = 3;
+
+    guassian_elimination(Am, Bv, u, 3);
+
+    std::cout << "result is:\n";
+    for (int i=0; i < (sizeof(u)/sizeof(*u)); i++){
+       std::cout << u[i] << "\n";
+    }
+    std::cout << "\n";
+
 }
