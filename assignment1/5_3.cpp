@@ -9,6 +9,7 @@ void swap_pointer(double *a, double *b)
     *c = *a;
     *a = *b;
     *b = *c;
+    delete c;
 }
 
 
