@@ -39,7 +39,7 @@ int main()
     std::cout << "multiply a row vector by a matrix.\n" << "(4, 7, 9) times\n"
               << "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n";
     double res [3] = {};
-    double A [] = {4,7,9};
+    double A [] = {1,2,3};
     double** B = new double*[3];
     for (int i = 0; i < 3; i++){
         B[i] = new double[3];

@@ -18,7 +18,7 @@ void Multiply(double *res, double *A, double **B, int ACols, int BRows, int BCol
     assert (ACols == BRows);
     for (int i=0; i<BRows; i++){
         for (int j=0; j<ACols; j++){
-            res[i] = res[i] + B[i][j] * A[j];
+            res[i] = res[i] + B[j][i] * A[j];
         }
     }
 }
