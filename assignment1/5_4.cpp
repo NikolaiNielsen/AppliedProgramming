@@ -10,7 +10,7 @@ double calc_std(double a[], int length){
 
     // Make sure we don't divide by zero when taking unbiased standard
     // deviation.
-    if (length == 0)
+    if (length == 1)
     {
         return 0.0;
     }
