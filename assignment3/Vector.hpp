@@ -22,6 +22,7 @@ public:
 	Vector operator*(double a) const;
 	// p-norm method
 	double CalculateNorm(int p=2) const;
+    void print() const;
 };
 
 #endif

@@ -3,6 +3,16 @@
 #include <cassert>
 #include "Vector.hpp"
 
+void Vector::print() const
+{
+    std::cout << "Length: " << mSize << ", data:\n";
+    for (int i=0; i<mSize-1; i++)
+    {
+        std::cout << mData[i] << ", ";
+    }
+    std::cout << mData[mSize-1] << "\n";
+}
+
 // Overridden copy constructor
 // Allocates memory for new vector, and copies
 // entries of other vector into it
