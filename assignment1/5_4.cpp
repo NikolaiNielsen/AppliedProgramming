@@ -10,9 +10,11 @@ double calc_std(double a[], int length){
 
     // Make sure we don't divide by zero when taking unbiased standard
     // deviation.
-    assert(length>1);
-
-    double std = 0;
+    if (length == 0)
+    {
+        return 0.0;
+    }
+    double std = 0.0;
     for (int i=0; i<length; i++){
         std += pow(a[i] - mean, 2);
     }
