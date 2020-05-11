@@ -8,7 +8,7 @@
             "command": "/usr/bin/clang++",
             "args": [
                 "-g",
-                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/assignment${input:assignment}test.cpp",
                 {
                     "value": "${workspaceFolder}/assignment${input:assignment}/*.cpp",
                     "quoting": "escape"
