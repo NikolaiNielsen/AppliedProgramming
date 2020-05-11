@@ -9,13 +9,60 @@ int main()
     // Exercise 1
     // Regression tests.
     regressionTestsVector();
+    regressionTestsMatrix();
 
     return 0;
 }
 
 void regressionTestsMatrix()
 {
-    
+    std::cout << "matrix m=[[1, 2], [3, 4]]:\n";
+    Matrix m(2, 2);
+    m(0, 0) = 1;
+    m(0, 1) = 2;
+    m(1, 0) = 3;
+    m(1, 1) = 4;
+    m.print();
+
+    std::cout << "\nEmpty, 2x2 matrix m2:\n";
+    Matrix m2(2, 2);
+    m2.print();
+
+    std::cout << "\nSet m2=m\n";
+    m2=m;
+    m2.print();
+
+    std::cout << "\nConstruct m3(m):\n";
+    Matrix m3(m);
+    m3.print();
+
+    std::cout << "\nm4 is empty 3x2 matrix.\n";
+    Matrix m4(3, 2);
+    std::cout << "m4 has " << m4.GetNumberOfRows() << " rows and "
+              << m4.GetNumberOfColumns() << "columns\n";
+
+    std::cout << "\nm(1,1) should be 3. it is: " << m(1,1) << "\n";
+
+    std::cout << "\n-m:\n";
+    (-m).print();
+
+    std::cout << "\nm+m2 = [[2, 4], [6, 8]]\n";
+    (m+m2).print();
+
+    std::cout << "\nm-m2 = [[0, 0], [0, 0]]\n";
+    (m-m2).print();
+
+    std::cout << "\nm*3 = [[3, 6], [9, 12]]\n";
+    (m*3).print();
+
+    Vector vm(2);
+    vm[0] = 3;
+    vm[1] = 2;
+    std::cout << "\n[3, 2] * m = [9, 14]\n";
+    (vm*m).print();
+
+    std::cout << "\nm * [3, 2] = [7, 17]\n";
+    (m*vm).print();
 }
 
 void regressionTestsVector()
