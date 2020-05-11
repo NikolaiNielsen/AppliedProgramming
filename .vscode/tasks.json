@@ -21,16 +21,20 @@
             "options": {
                 "cwd": "/usr/bin"
             },
-            "group": {"kind": "build", "isDefault": true}
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "zip handin",
             "type": "shell",
             "command": "zip",
             "args": [
-                "-u", // update only with new or changed files
-                "-j", // don't include folder names
-                "${workspaceFolder}/handin${input:assignment}.zip", // output
+                "-u",
+                "-j",
+                "${workspaceFolder}/handin${input:assignment}.zip",
                 {
                     "value": "${workspaceFolder}/assignment${input:assignment}/*.cpp",
                     "quoting": "escape"
@@ -38,13 +42,11 @@
                 {
                     "value": "${workspaceFolder}/assignment${input:assignment}/*.h",
                     "quoting": "escape"
-                },
-                // {
-                //     "value": "${workspaceFolder}/assignment${input:assignment}/*.hpp",
-                //     "quoting": "escape"
-                // },
+                }
             ],
-            "options": {"cwd": "${workspaceFolder}"},
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         }
     ],
     "inputs": [
