@@ -22,6 +22,7 @@ public:
 	Matrix operator-(const Matrix& m1) const; // binary -
 	// scalar multiplication
 	Matrix operator*(double a) const;
+    void print() const;
 };
 //matrix-vector multiplications
 Vector operator*(const Matrix& m, const Vector& v);
