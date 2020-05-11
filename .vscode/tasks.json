@@ -21,11 +21,6 @@
             "options": {
                 "cwd": "/usr/bin"
             },
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
         },
         {
             "label": "zip handin",
