@@ -21,6 +21,7 @@
             "options": {
                 "cwd": "/usr/bin"
             },
+            "problemMatcher": []
         },
         {
             "label": "zip handin",
