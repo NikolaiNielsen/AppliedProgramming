@@ -3,24 +3,23 @@
 
 #include <cassert>
 #include <cmath>
+#include <vector>
 #include <iostream>
 
 template <class T>
 class Vector
 {
 private:
-	T* mData; // data stored in vector
-	int mSize; // size of vector
+	std::vector<T> mData; // data stored in vector
 
 public:
     // copy constructor
-  Vector(const Vector& otherVector)
+    Vector(const Vector& otherVector)
     {
-        mSize = otherVector.size();
-        mData = new T [mSize];
-        for (int i = 0; i < mSize; i++)
+        mData.reserve(otherVector.size());
+        for (int i = 0; i < otherVector.size(); i++)
         {
-            mData[i] = otherVector.mData[i];
+            mData.push_back(otherVector.mData[i]);
         }
     }
 
@@ -28,42 +27,36 @@ public:
     {
         assert(size > 0);
 
-        mSize = size;
-        mData = new T [mSize];
-        for (int i = 0; i < mSize; i++)
+        mData.reserve(size);
+        for (int i = 0; i < size; i++)
         {
-            mData[i] = 0.0;
+            mData.push_back(0.0);
         }
-    }
-
-	~Vector()
-    {
-        delete[] mData;
     }
 
 	int size() const
     {
-        return mSize;
+        return mData.size();
     }
 
 	T& operator[](int i)
     {
-        assert(i >= 0 && i < mSize);
+        assert(i >= 0 && i < mData.size());
         return mData[i];
     }
 
 	T const& operator[] (int i)const
     {
-        assert(i >= 0 && i < mSize);
+        assert(i >= 0 && i < mData.size());
         return mData[i];
     }
 
 	// assignment operator
 	Vector& operator=(const Vector& otherVector)
     {
-        assert(mSize == otherVector.mSize);
+        assert(mData.size() == otherVector.size());
 
-        for (int i = 0; i < mSize; i++)
+        for (int i = 0; i < mData.size(); i++)
         {
             mData[i] = otherVector.mData[i];
         }
@@ -73,8 +66,8 @@ public:
     // overloading the unary - operator
 	Vector operator-() const
     {
-        Vector v(mSize);
-        for (int i = 0; i < mSize; i++)
+        Vector v(mData.size());
+        for (int i = 0; i < mData.size(); i++)
         {
             v[i] = -mData[i];
         }
@@ -84,10 +77,10 @@ public:
     // overloading the binary + operator
 	Vector operator+(const Vector& v1) const
     {
-        assert(mSize == v1.mSize);
+        assert(mData.size() == v1.size());
 
-        Vector v(mSize);
-        for (int i = 0; i < mSize; i++)
+        Vector v(mData.size());
+        for (int i = 0; i < mData.size(); i++)
         {
             v[i] = mData[i] + v1.mData[i];
         }
@@ -97,10 +90,10 @@ public:
     // overloading the binary - operator
 	Vector operator-(const Vector& v1) const
     {
-        assert(mSize == v1.mSize);
+        assert(mData.size() == v1.size());
 
-        Vector v(mSize);
-        for (int i = 0; i < mSize; i++)
+        Vector v(mData.size());
+        for (int i = 0; i < mData.size(); i++)
         {
             v[i] = mData[i] - v1.mData[i];
         }
@@ -110,8 +103,8 @@ public:
 	// scalar multiplication
 	Vector operator*(double a) const
     {
-        Vector v(mSize);
-        for (int i = 0; i < mSize; i++)
+        Vector v(mData.size());
+        for (int i = 0; i < mData.size(); i++)
         {
             v[i] = a*mData[i];
         }
@@ -122,7 +115,7 @@ public:
 	double CalculateNorm(int p = 2) const
     {
         double sum = 0.0;
-        for (int i = 0; i < mSize; i++)
+        for (int i = 0; i < mData.size(); i++)
         {
             sum += pow(std::abs(mData[i]), p);
         }
@@ -132,12 +125,12 @@ public:
     // Print method
     void print() const
     {
-        std::cout << "Length: " << mSize << ", data:\n";
-        for (int i = 0; i < mSize - 1; i++)
+        std::cout << "Length: " << mData.size() << ", data:\n";
+        for (int i = 0; i < mData.size() - 1; i++)
         {
             std::cout << mData[i] << ", ";
         }
-        std::cout << mData[mSize - 1] << "\n";
+        std::cout << mData[mData.size() - 1] << "\n";
     }
 };
 
