@@ -54,17 +54,17 @@ public:
         return mData[i];
     }
 
-	// assignment operator
-	Vector& operator=(const Vector& otherVector)
-    {
-        assert(size() == otherVector.size());
+	// assignment operator - not needed with template! Likewise with destructor
+	// Vector& operator=(const Vector& otherVector)
+    // {
+    //     assert(size() == otherVector.size());
 
-        for (int i = 0; i < size(); i++)
-        {
-            mData[i] = otherVector.mData[i];
-        }
-        return *this;
-    }
+    //     for (int i = 0; i < size(); i++)
+    //     {
+    //         mData[i] = otherVector.mData[i];
+    //     }
+    //     return *this;
+    // }
 
     // overloading the unary - operator
 	Vector operator-() const

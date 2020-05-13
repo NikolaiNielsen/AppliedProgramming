@@ -84,21 +84,21 @@ public:
         return mData[index];
     }
 
-	// overloaded assignment operator
-	Matrix& operator=(const Matrix& otherMatrix)
-    {
-        assert(mNumRows == otherMatrix.mNumRows);
-        assert(mNumCols == otherMatrix.mNumCols);
+	// overloaded assignment operator - not needed, along with destructor
+	// Matrix& operator=(const Matrix& otherMatrix)
+    // {
+    //     assert(mNumRows == otherMatrix.mNumRows);
+    //     assert(mNumCols == otherMatrix.mNumCols);
 
-        for (int i = 0; i < mNumRows; i++)
-        {
-            for (int j = 0; j < mNumCols; j++)
-            {
-                mData[getIndex(i, j)] = otherMatrix(i, j);
-            }
-        }
-        return *this;
-    }
+    //     for (int i = 0; i < mNumRows; i++)
+    //     {
+    //         for (int j = 0; j < mNumCols; j++)
+    //         {
+    //             mData[getIndex(i, j)] = otherMatrix(i, j);
+    //         }
+    //     }
+    //     return *this;
+    // }
 
 	Matrix operator-() const // unary -
     {
