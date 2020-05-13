@@ -6,7 +6,9 @@
 
 template<class T> class SparseVector{
 private:
-	//Add your data members here!
+	std::vector<unsigned int> mIndices;
+    std::vector<T> mValues
+    unsigned int mDimension;
 
 public:
 	//creates an empty vector of dimensionality 0.
