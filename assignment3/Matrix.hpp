@@ -79,7 +79,7 @@ public:
         // We use zero-based indexing, so it's quite easy to implement
         int index = i*rows + j;
 
-        return index
+        return index;
     }
 
 	T& operator()(int i, int j)

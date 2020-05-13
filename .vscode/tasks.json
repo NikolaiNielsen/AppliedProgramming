@@ -3,20 +3,79 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "clang++ build assignment",
+            "label": "Build Assignment 1",
             "type": "shell",
             "command": "/usr/bin/clang++",
             "args": [
                 "-g",
-                "${workspaceFolder}/assignment${input:assignment}test.cpp",
-                // {
-                //     "value": "${workspaceFolder}/assignment${input:assignment}/*.cpp",
-                //     "quoting": "escape"
-                // },
+                "${workspaceFolder}/assignment1test.cpp",
+                {
+                    "value": "${workspaceFolder}/assignment1/*.cpp",
+                    "quoting": "escape"
+                },
                 "-Xclang",
                 "-flto-visibility-public-std",
                 "-o",
-                "${workspaceFolder}/assignment${input:assignment}.out"
+                "${workspaceFolder}/assignment1.out"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Assignment 2",
+            "type": "shell",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${workspaceFolder}/assignment2test.cpp",
+                {
+                    "value": "${workspaceFolder}/assignment2/*.cpp",
+                    "quoting": "escape"
+                },
+                "-Xclang",
+                "-flto-visibility-public-std",
+                "-o",
+                "${workspaceFolder}/assignment2.out"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Assignment 3",
+            "type": "shell",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${workspaceFolder}/assignment3test.cpp",
+                "-Xclang",
+                "-flto-visibility-public-std",
+                "-o",
+                "${workspaceFolder}/assignment3.out"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Assignment 4",
+            "type": "shell",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${workspaceFolder}/assignment4test.cpp",
+                {
+                    "value": "${workspaceFolder}/assignment4/*.cpp",
+                    "quoting": "escape"
+                },
+                "-Xclang",
+                "-flto-visibility-public-std",
+                "-o",
+                "${workspaceFolder}/assignment4.out"
             ],
             "options": {
                 "cwd": "/usr/bin"
