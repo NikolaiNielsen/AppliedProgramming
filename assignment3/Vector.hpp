@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <iostream>
 
 class Vector
 {
@@ -125,6 +126,17 @@ public:
             sum += pow(std::abs(mData[i]), p);
         }
         return pow(sum, 1.0 / ((double)(p)));
+    }
+
+    // Print method
+    void Vector::print() const
+    {
+        std::cout << "Length: " << mSize << ", data:\n";
+        for (int i = 0; i < mSize - 1; i++)
+        {
+            std::cout << mData[i] << ", ";
+        }
+        std::cout << mData[mSize - 1] << "\n";
     }
 };
 

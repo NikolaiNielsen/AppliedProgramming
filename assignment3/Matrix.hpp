@@ -164,6 +164,22 @@ public:
         }
         return mat;
     }
+
+    // Print methodd
+    void Matrix::print() const
+    {
+        std::cout << "size: "
+                  << "(" << mNumRows << "," << mNumCols << ")"
+                  << ", data:\n";
+        for (int i = 0; i < mNumRows; i++)
+        {
+            for (int j = 0; j < mNumCols - 1; j++)
+            {
+                std::cout << mData[i][j] << ", ";
+            }
+            std::cout << mData[i][mNumCols - 1] << "\n";
+        }
+    }
 }; // class Matrix
 
 
