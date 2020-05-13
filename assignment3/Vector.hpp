@@ -9,7 +9,7 @@ template <class T>
 class Vector
 {
 private:
-	double* mData; // data stored in vector
+	T* mData; // data stored in vector
 	int mSize; // size of vector
 
 public:
@@ -29,7 +29,7 @@ public:
         assert(size > 0);
 
         mSize = size;
-        mData = new double [mSize];
+        mData = new T [mSize];
         for (int i = 0; i < mSize; i++)
         {
             mData[i] = 0.0;
