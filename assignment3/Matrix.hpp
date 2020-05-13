@@ -71,6 +71,17 @@ public:
         return mNumCols;
     }
 
+    int getIntex(int i, int j) const
+    {
+        // returns the row-major index for row i, column j:
+        int rows = GetNumberOfRows();
+
+        // We use zero-based indexing, so it's quite easy to implement
+        int index = i*rows + j;
+
+        return index
+    }
+
 	T& operator()(int i, int j)
     {
         assert(i >= 0);
