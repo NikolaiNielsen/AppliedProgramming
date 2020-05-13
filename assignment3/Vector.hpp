@@ -129,7 +129,7 @@ public:
     }
 
     // Print method
-    void Vector::print() const
+    void print() const
     {
         std::cout << "Length: " << mSize << ", data:\n";
         for (int i = 0; i < mSize - 1; i++)

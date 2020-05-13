@@ -166,7 +166,7 @@ public:
     }
 
     // Print methodd
-    void Matrix::print() const
+    void print() const
     {
         std::cout << "size: "
                   << "(" << mNumRows << "," << mNumCols << ")"
