@@ -17,6 +17,9 @@ public:
     Vector(const Vector& otherVector)
     {
         mData.reserve(otherVector.size());
+
+        // We use otherVector.size() as upper bound for iterator, since reserve
+        // doesn't set the size of mData (it is only set when pushing back)
         for (int i = 0; i < otherVector.size(); i++)
         {
             mData.push_back(otherVector.mData[i]);
@@ -41,22 +44,22 @@ public:
 
 	T& operator[](int i)
     {
-        assert(i >= 0 && i < mData.size());
+        assert(i >= 0 && i < size());
         return mData[i];
     }
 
 	T const& operator[] (int i)const
     {
-        assert(i >= 0 && i < mData.size());
+        assert(i >= 0 && i < size());
         return mData[i];
     }
 
 	// assignment operator
 	Vector& operator=(const Vector& otherVector)
     {
-        assert(mData.size() == otherVector.size());
+        assert(size() == otherVector.size());
 
-        for (int i = 0; i < mData.size(); i++)
+        for (int i = 0; i < size(); i++)
         {
             mData[i] = otherVector.mData[i];
         }
@@ -66,8 +69,8 @@ public:
     // overloading the unary - operator
 	Vector operator-() const
     {
-        Vector v(mData.size());
-        for (int i = 0; i < mData.size(); i++)
+        Vector v(size());
+        for (int i = 0; i < size(); i++)
         {
             v[i] = -mData[i];
         }
@@ -77,10 +80,10 @@ public:
     // overloading the binary + operator
 	Vector operator+(const Vector& v1) const
     {
-        assert(mData.size() == v1.size());
+        assert(size() == v1.size());
 
-        Vector v(mData.size());
-        for (int i = 0; i < mData.size(); i++)
+        Vector v(size());
+        for (int i = 0; i < size(); i++)
         {
             v[i] = mData[i] + v1.mData[i];
         }
@@ -90,10 +93,10 @@ public:
     // overloading the binary - operator
 	Vector operator-(const Vector& v1) const
     {
-        assert(mData.size() == v1.size());
+        assert(size() == v1.size());
 
-        Vector v(mData.size());
-        for (int i = 0; i < mData.size(); i++)
+        Vector v(size());
+        for (int i = 0; i < size(); i++)
         {
             v[i] = mData[i] - v1.mData[i];
         }
@@ -103,8 +106,8 @@ public:
 	// scalar multiplication
 	Vector operator*(double a) const
     {
-        Vector v(mData.size());
-        for (int i = 0; i < mData.size(); i++)
+        Vector v(size());
+        for (int i = 0; i < size(); i++)
         {
             v[i] = a*mData[i];
         }
@@ -115,7 +118,7 @@ public:
 	double CalculateNorm(int p = 2) const
     {
         double sum = 0.0;
-        for (int i = 0; i < mData.size(); i++)
+        for (int i = 0; i < size(); i++)
         {
             sum += pow(std::abs(mData[i]), p);
         }
@@ -125,12 +128,12 @@ public:
     // Print method
     void print() const
     {
-        std::cout << "Length: " << mData.size() << ", data:\n";
-        for (int i = 0; i < mData.size() - 1; i++)
+        std::cout << "Length: " << size() << ", data:\n";
+        for (int i = 0; i < size() - 1; i++)
         {
             std::cout << mData[i] << ", ";
         }
-        std::cout << mData[mData.size() - 1] << "\n";
+        std::cout << mData[size() - 1] << "\n";
     }
 };
 
