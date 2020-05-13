@@ -1,18 +1,28 @@
 #include "assignment3/Matrix.hpp"
 #include "assignment3/Vector.hpp"
+#include "assignment3/SparseVector.hpp"
 #include <iostream>
 
 void regressionTestsVector();
 void regressionTestsMatrix();
+void regressionTestsSparse();
 
 int main()
 {
     // Exercise 1
     // Regression tests.
-    regressionTestsVector();
-    regressionTestsMatrix();
-
+    // regressionTestsVector();
+    // regressionTestsMatrix();
+    regressionTestsSparse();
     return 0;
+}
+
+void regressionTestsSparse()
+{
+    SparseVector<int> s(3);
+    s.print();
+
+
 }
 
 void regressionTestsMatrix()
