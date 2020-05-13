@@ -135,6 +135,12 @@ public:
         }
         std::cout << mData[size() - 1] << "\n";
     }
+
+    // Get reference to internal vector
+    std::vector<T> const &getStorage() const
+    {
+        return mData;
+    }
 };
 
 

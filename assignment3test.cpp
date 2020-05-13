@@ -64,6 +64,7 @@ void regressionTestsMatrix()
 
     std::cout << "\nm * [3, 2] = [7, 17]\n";
     (m*vm).print();
+
 }
 
 void regressionTestsVector()
