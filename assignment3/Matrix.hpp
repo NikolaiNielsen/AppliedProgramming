@@ -6,7 +6,7 @@ template <class T>
 class Matrix
 {
 private:
-	T** mData; // entries of matrix
+	std::vector<T> mData; // entries of matrix
 	int mNumRows, mNumCols; // dimensions
 
 public:
@@ -15,17 +15,13 @@ public:
     {
         mNumRows = otherMatrix.mNumRows;
         mNumCols = otherMatrix.mNumCols;
-        mData = new T* [mNumRows];
+        mData.reserve(mNumCols * mNumRows);
 
-        for (int i = 0; i < mNumRows; i++)
-        {
-            mData[i] = new T [mNumCols];
-        }
         for (int i = 0; i < mNumRows; i++)
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mData[i][j] = otherMatrix.mData[i][j];
+                mData[getIndex(i, j)] = otherMatrix(i, j);
             }
         }
     }
@@ -37,28 +33,14 @@ public:
 
         mNumRows = numRows;
         mNumCols = numCols;
-        mData = new T* [mNumRows];
-
-        for (int i = 0; i < mNumRows; i++)
-        {
-            mData[i] = new T [mNumCols];
-        }
+        mData.reserve(mNumCols * mNumRows);
         for (int i = 0; i < mNumRows; i++)
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mData[i][j] = 0.0;
+                mData.push_back(0.0);
             }
         }
-    }
-
-	~Matrix()
-    {
-        for (int i = 0; i < mNumRows; i++)
-        {
-            delete[] mData[i];
-        }
-        delete[] mData;
     }
 
 	int GetNumberOfRows() const
@@ -71,13 +53,13 @@ public:
         return mNumCols;
     }
 
-    int getIntex(int i, int j) const
+    int getIndex(int i, int j) const
     {
         // returns the row-major index for row i, column j:
         int rows = GetNumberOfRows();
 
         // We use zero-based indexing, so it's quite easy to implement
-        int index = i*rows + j;
+        int index = i * rows + j;
 
         return index;
     }
@@ -88,8 +70,8 @@ public:
         assert(i < mNumRows);
         assert(j >= 0);
         assert(j < mNumCols);
-
-        return mData[i][j];
+        int index = getIndex(i, j);
+        return mData[index];
     }
 
 	T const& operator()(int i, int j) const
@@ -98,8 +80,8 @@ public:
         assert(i < mNumRows);
         assert(j >= 0);
         assert(j < mNumCols);
-
-        return mData[i][j];
+        int index = getIndex(i, j);
+        return mData[index];
     }
 
 	// overloaded assignment operator
@@ -112,7 +94,7 @@ public:
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mData[i][j] = otherMatrix.mData[i][j];
+                mData[getIndex(i, j)] = otherMatrix(i, j);
             }
         }
         return *this;
@@ -125,7 +107,7 @@ public:
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mat(i,j) = -mData[i][j];
+                mat(i,j) = -mData[getIndex(i, j)];
             }
         }
         return mat;
@@ -141,7 +123,7 @@ public:
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mat(i,j) = mData[i][j] + m1.mData[i][j];
+                mat(i,j) = mData[getIndex(i, j)] + m1(i, j);
             }
         }
         return mat;
@@ -157,7 +139,7 @@ public:
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mat(i,j) = mData[i][j] - m1.mData[i][j];
+                mat(i, j) = mData[getIndex(i, j)] - m1(i, j);
             }
         }
         return mat;
@@ -171,7 +153,7 @@ public:
         {
             for (int j = 0; j < mNumCols; j++)
             {
-                mat(i,j) = a*mData[i][j];
+                mat(i, j) = a * mData[getIndex(i, j)];
             }
         }
         return mat;
@@ -187,9 +169,9 @@ public:
         {
             for (int j = 0; j < mNumCols - 1; j++)
             {
-                std::cout << mData[i][j] << ", ";
+                std::cout << mData[getIndex(i, j)] << ", ";
             }
-            std::cout << mData[i][mNumCols - 1] << "\n";
+            std::cout << mData[getIndex(i, mNumCols - 1)] << "\n";
         }
     }
 }; // class Matrix
@@ -213,7 +195,7 @@ Vector<T> operator*(const Matrix<T>& m, const Vector<T>& v)
 	{
 		for (int j = 0; j < original_vector_size; j++)
 		{
-			new_vector[i] += m(i,j)*v[j];
+			new_vector[i] += m(i, j) * v[j];
 		}
 	}
 
@@ -233,7 +215,7 @@ Vector<T> operator*(const Vector<T>& v, const Matrix<T>& m)
 	{
 		for (int j = 0; j < original_vector_size; j++)
 		{
-			new_vector[i] += v[j]*m(j,i);
+			new_vector[i] += v[j] * m(j, i);
 		}
 	}
 
