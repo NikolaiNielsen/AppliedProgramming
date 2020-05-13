@@ -2,10 +2,11 @@
 #define MATRIXHEADERDEF
 #include "Vector.hpp"
 
+template <class T>
 class Matrix
 {
 private:
-	double** mData; // entries of matrix
+	T** mData; // entries of matrix
 	int mNumRows, mNumCols; // dimensions
 
 public:
@@ -14,11 +15,11 @@ public:
     {
         mNumRows = otherMatrix.mNumRows;
         mNumCols = otherMatrix.mNumCols;
-        mData = new double* [mNumRows];
+        mData = new T* [mNumRows];
 
         for (int i = 0; i < mNumRows; i++)
         {
-            mData[i] = new double [mNumCols];
+            mData[i] = new T [mNumCols];
         }
         for (int i = 0; i < mNumRows; i++)
         {
@@ -36,11 +37,11 @@ public:
 
         mNumRows = numRows;
         mNumCols = numCols;
-        mData = new double* [mNumRows];
+        mData = new T* [mNumRows];
 
         for (int i = 0; i < mNumRows; i++)
         {
-            mData[i] = new double [mNumCols];
+            mData[i] = new T [mNumCols];
         }
         for (int i = 0; i < mNumRows; i++)
         {
@@ -70,7 +71,7 @@ public:
         return mNumCols;
     }
 
-	double& operator()(int i, int j)
+	T& operator()(int i, int j)
     {
         assert(i >= 0);
         assert(i < mNumRows);
@@ -80,7 +81,7 @@ public:
         return mData[i][j];
     }
 
-	double const& operator()(int i, int j) const
+	T const& operator()(int i, int j) const
     {
         assert(i >= 0);
         assert(i < mNumRows);
@@ -184,13 +185,18 @@ public:
 
 
 //matrix-vector multiplications
-Vector operator*(const Matrix& m, const Vector& v)
+
+// When creating template functions (ie, outside the main class definition,) we
+// need to add a template of type T. And also, of course, specify the type we
+// use in the functions.
+template <typename T>
+Vector<T> operator*(const Matrix<T>& m, const Vector<T>& v)
 {
     int original_vector_size = v.size();
 	assert(m.GetNumberOfColumns() == original_vector_size);
 
 	int new_vector_length = m.GetNumberOfRows();
-	Vector new_vector(new_vector_length);
+	Vector<T> new_vector(new_vector_length);
 
 	for (int i = 0; i < new_vector_length; i++)
 	{
@@ -203,13 +209,14 @@ Vector operator*(const Matrix& m, const Vector& v)
 	return new_vector;
 }
 
-Vector operator*(const Vector& v, const Matrix& m)
+template <typename T>
+Vector<T> operator*(const Vector<T>& v, const Matrix<T>& m)
 {
 	int original_vector_size = v.size();
 	assert(m.GetNumberOfRows() == original_vector_size);
 
 	int new_vector_length = m.GetNumberOfColumns();
-	Vector new_vector(new_vector_length);
+	Vector<T> new_vector(new_vector_length);
 
 	for (int i = 0; i < new_vector_length; i++)
 	{
