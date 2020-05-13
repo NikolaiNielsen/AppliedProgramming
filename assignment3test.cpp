@@ -69,18 +69,18 @@ int main()
 void regressionTestsVector()
 {
     std::cout << "vector v=[1, 0, 3]:\n";
-    Vector v(3);
+    Vector<double> v(3);
     v[0] = 1;
     v[1] = 0;
     v[2] = 3;
     v.print();
 
     std::cout << "\nvector v2=v:\n";
-    Vector v2(v);
+    Vector<double> v2(v);
     v2.print();
 
     std::cout << "\nvector v3=[0, 0, 0, 0]:\n";
-    Vector v3(4);
+    Vector<double> v3(4);
     v3.print();
 
     std::cout << "\nlength of v3 (should be 4): " << v3.size() << "\n";

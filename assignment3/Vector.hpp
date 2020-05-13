@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 
+template <class T>
 class Vector
 {
 private:
@@ -16,7 +17,7 @@ public:
   Vector(const Vector& otherVector)
     {
         mSize = otherVector.size();
-        mData = new double [mSize];
+        mData = new T [mSize];
         for (int i = 0; i < mSize; i++)
         {
             mData[i] = otherVector.mData[i];
@@ -45,13 +46,13 @@ public:
         return mSize;
     }
 
-	double& operator[](int i)
+	T& operator[](int i)
     {
         assert(i >= 0 && i < mSize);
         return mData[i];
     }
 
-	double const& operator[] (int i)const
+	T const& operator[] (int i)const
     {
         assert(i >= 0 && i < mSize);
         return mData[i];
