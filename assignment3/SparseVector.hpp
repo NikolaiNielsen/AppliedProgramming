@@ -234,12 +234,30 @@ SparseVector<T> operator-(SparseVector<T> const& x, SparseVector<T> const& y)
 // computes the matrix-vector product of a dense matrix and sparse vector z=Ax.
 // The result is a dense vector.
 template<class T>
-Vector<T> operator* (Matrix<T> const& A, SparseVector<T> const& x);
+Vector<T> operator* (Matrix<T> const& A, SparseVector<T> const& x)
+{
+    // Create a dense vector v, identical to x.
+    Vector<T> v(x.size());
+    for (int i=0; i<x.nonZeroes(); i++)
+    {
+        v[x.indexNonZero(i)] = x.valueNonZero(i);
+    }
+
+    return A*v;
+}
 
 // computes the matrix-vector product of a dense matrix and sparse vector z=x^TA.
 // The result is a dense vector.
 template<class T>
-Vector<T> operator* (SparseVector<T> const& x, Matrix<T> const& A);
-
+Vector<T> operator* (SparseVector<T> const& x, Matrix<T> const& A)
+{
+    // Create a dense vector v, identical to x.
+    Vector<T> v(x.size());
+    for (int i = 0; i < x.nonZeroes(); i++)
+    {
+        v[x.indexNonZero(i)] = x.valueNonZero(i);
+    }
+    return v*A;
+}
 
 #endif
