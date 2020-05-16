@@ -46,9 +46,10 @@ void regressionTestsSparse()
     s3.setValue(0, 3);
     s3.print();
 
-    s -= s3;
     s.print();
-
+    SparseVector<int> s4;
+    s4 = s+s3;
+    s4.print();
 }
 
 void regressionTestsMatrix()
