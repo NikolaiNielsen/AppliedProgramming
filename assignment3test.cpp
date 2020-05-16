@@ -19,37 +19,60 @@ int main()
 
 void regressionTestsSparse()
 {
+    std::cout << "s: Empty vector of size 10:\n";
     SparseVector<int> s(10);
     s.print();
 
+    std::cout << "\ns2: Empty vector of size 0:\n";
     SparseVector<int> s2;
     s2.print();
 
-    std::cout << s.getValue(1) << "\n";
-
+    std::cout << "\nSet 4 values of s, out of order.\n";
     s.setValue(1, 3);
     s.setValue(3, 4);
     s.setValue(6, 1);
     s.setValue(2, 5);
-    s.print();
 
 
-    std::cout << "accessing values in s:\n";
+    std::cout << "Then print s:\n";
     for (int i = 0; i<10; i++)
     {
-        // std::cout << i << ", " << s.getValue(i) << "\n";
-        s.getValue(i);
+        std::cout << i << ", " << s.getValue(i) << "\n";
     }
 
+    std::cout << "\ns3\n"; 
     SparseVector<int> s3(10);
     s3.setValue(1, 4);
     s3.setValue(0, 3);
     s3.print();
 
-    s.print();
-    SparseVector<int> s4;
-    s4 = s+s3;
-    s4.print();
+    std::cout << "\ns+s3:\n";
+    (s+s3).print();
+
+    std::cout << "\ns-s3:\n";
+    (s-s3).print();
+
+    Matrix<int> sm(5, 5);
+    sm(0,0) = 1;
+    sm(1,1) = 1;
+    sm(0,3) = 1;
+    sm(2,0) = 1;
+    sm(2,2) = 1;
+    sm(3,3) = 1;
+    sm(4,4) = 1;
+
+    SparseVector<int> s4(5);
+    s4.setValue(1, 3);
+    s4.setValue(3, 2);
+
+    std::cout << "\ntesting matrix-vector product. Matrix:\n";
+    sm.print();
+    std::cout << "vector [0, 3, 0, 2, 0]. Result should be [2,3,0,2,0]\n";
+    (sm*s4).print();
+
+    std::cout << "vector-matrix product of same matrix/vector.\n"
+              << "Result should be [0, 3, 0, 2, 0]\n";
+    (s4*sm).print();
 }
 
 void regressionTestsMatrix()
