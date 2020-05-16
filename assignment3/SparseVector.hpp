@@ -77,11 +77,15 @@ public:
             // case 1
             mValues[position] = value;
         }
-        // else
+        else
         {
             // case 2
-            mValues.insert(position, value);
-            mIndices.insert(position, index);
+
+            // Insert needs iterators, not integers. So create these
+            auto val_pos = mValues.begin() + position;
+            auto ind_pos = mIndices.begin() + position;
+            mValues.insert(val_pos, value);
+            mIndices.insert(ind_pos, index);
         }
         
 

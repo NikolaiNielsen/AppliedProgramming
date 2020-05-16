@@ -30,6 +30,7 @@ void regressionTestsSparse()
     s.setValue(1, 3);
     s.setValue(3, 4);
     s.setValue(6, 1);
+    s.setValue(2, 5);
     s.print();
 
 
