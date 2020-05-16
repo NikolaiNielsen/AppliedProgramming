@@ -13,18 +13,7 @@ private:
 	std::vector<T> mData; // data stored in vector
 
 public:
-    // copy constructor
-    Vector(const Vector& otherVector)
-    {
-        mData.reserve(otherVector.size());
-
-        // We use otherVector.size() as upper bound for iterator, since reserve
-        // doesn't set the size of mData (it is only set when pushing back)
-        for (int i = 0; i < otherVector.size(); i++)
-        {
-            mData.push_back(otherVector.mData[i]);
-        }
-    }
+    // copy constructor can be done by compiler
 
 	Vector(int size)
     {

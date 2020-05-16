@@ -10,21 +10,7 @@ private:
 	int mNumRows, mNumCols; // dimensions
 
 public:
-    // copy constructor
-	Matrix(const Matrix& otherMatrix)
-    {
-        mNumRows = otherMatrix.mNumRows;
-        mNumCols = otherMatrix.mNumCols;
-        mData.reserve(mNumCols * mNumRows);
-
-        for (int i = 0; i < mNumRows; i++)
-        {
-            for (int j = 0; j < mNumCols; j++)
-            {
-                mData[getIndex(i, j)] = otherMatrix(i, j);
-            }
-        }
-    }
+    // copy constructor can be done by compiler
 
 	Matrix(int numRows, int numCols)
     {
