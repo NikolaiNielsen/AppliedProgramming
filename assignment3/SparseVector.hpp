@@ -105,7 +105,7 @@ public:
         // The actual position is the lower bound minus the starting position
         // memory.
         auto position = lower - mIndices.begin();
-        std::cout << "Index " << index << " value " << position << "\n";
+        // std::cout << "Index " << index << " value " << position << "\n";
 
         // If there are no indices stored, we return 0.
         if (nonZeroes() == 0)
@@ -168,9 +168,33 @@ public:
     }
 
 	// adds x to the current vector
-	SparseVector<T>& operator+= (SparseVector<T> const& x);
+	SparseVector<T>& operator+= (SparseVector<T> const& x)
+    {
+        // For each non-zero element in x we set the corresponding value in
+        // this to the current value plus the value in x:
+        // z_i = z_i + x_i
+        int num_non_zeros = x.nonZeroes();
+        for (int i=0; i<num_non_zeros; i++)
+        {
+            int index = x.indexNonZero(i);
+            setValue(index, getValue(index)+x.valueNonZero(i));
+        }
+        return *this;
+    }
 	// subtracts x from the current vector
-	SparseVector<T>& operator-= (SparseVector<T> const& x);
+	SparseVector<T>& operator-= (SparseVector<T> const& x)
+    {
+        // For each non-zero element in x we set the corresponding value in
+        // this to the current value minus the value in x:
+        // z_i = z_i - x_i
+        int num_non_zeros = x.nonZeroes();
+        for (int i = 0; i < num_non_zeros; i++)
+        {
+            int index = x.indexNonZero(i);
+            setValue(index, getValue(index) - x.valueNonZero(i));
+        }
+        return *this;
+    }
 
     // printer
     void print() const

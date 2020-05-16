@@ -41,6 +41,13 @@ void regressionTestsSparse()
         s.getValue(i);
     }
 
+    SparseVector<int> s3(10);
+    s3.setValue(1, 4);
+    s3.setValue(0, 3);
+    s3.print();
+
+    s -= s3;
+    s.print();
 
 }
 
