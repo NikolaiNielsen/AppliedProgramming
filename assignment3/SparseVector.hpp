@@ -16,6 +16,7 @@
 #include "Vector.hpp"
 #include "Matrix.hpp"
 #include <iostream>
+#include <algorithm>
 
 template<class T> class SparseVector{
 private:
@@ -43,6 +44,7 @@ public:
 	// sets the value v_i of the vector. if it does not exist it is added
 	void setValue(unsigned int index, T value)
     {
+        // std::vector<T>::iterator lower;
         mIndices.push_back(index);
         mValues.push_back(value);
     }
@@ -51,26 +53,47 @@ public:
     // stored
 	T getValue(unsigned int index) const
     {
-        // Make sure we're trying to reach an actual element. We don't need the
-        // <0 check, since we're using unsigned integers.
-        assert (index < mDimension);
-        // If there are no indices, return 0 immediately (to avoid an infinite
-        // for loop)
-        if (nonZeroes() == 0)
+
+        // std::vector<unsigned int>::iterator lower;
+        auto lower = std::lower_bound(mIndices.begin(), mIndices.end(), index);
+        auto position = lower - mIndices.begin();
+        std::cout << "Index " << index << " has position " << position << "\n";
+
+        if ((unsigned int)(position) == nonZeroes())
         {
-            // Problem with 0 maybe not being of class T? Let's cast it
             return (T)(0);
         }
-        // run through indices to check if index is non-zero
-        for (int i=0; i<nonZeroes(); i++)
+        else if ((unsigned int)(position) == 0)
         {
-            if (index == mIndices[i])
-            {
-                return mValues[i];
-            }
+            return (T)(0);
         }
-        // if we didn't return anything yet, the value is not non-zero.
-        return (T)(0);
+        else
+        {
+            return mValues[position];
+        }
+        
+            
+
+        // // Make sure we're trying to reach an actual element. We don't need the
+        // // <0 check, since we're using unsigned integers.
+        // assert (index < mDimension);
+        // // If there are no indices, return 0 immediately (to avoid an infinite
+        // // for loop)
+        // if (nonZeroes() == 0)
+        // {
+        //     // Problem with 0 maybe not being of class T? Let's cast it
+        //     return (T)(0);
+        // }
+        // // run through indices to check if index is non-zero
+        // for (int i=0; i<nonZeroes(); i++)
+        // {
+        //     if (index == mIndices[i])
+        //     {
+        //         return mValues[i];
+        //     }
+        // }
+        // // if we didn't return anything yet, the value is not non-zero.
+        // return (T)(0);
     }
 
 	// returns the dimensionality of the vector

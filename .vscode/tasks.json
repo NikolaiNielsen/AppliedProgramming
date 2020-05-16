@@ -15,6 +15,7 @@
                 },
                 "-Xclang",
                 "-flto-visibility-public-std",
+                "-std=c++11",
                 "-o",
                 "${workspaceFolder}/assignment1.out"
             ],
@@ -36,6 +37,7 @@
                 },
                 "-Xclang",
                 "-flto-visibility-public-std",
+                "-std=c++11",
                 "-o",
                 "${workspaceFolder}/assignment2.out"
             ],
@@ -53,6 +55,7 @@
                 "${workspaceFolder}/assignment3test.cpp",
                 "-Xclang",
                 "-flto-visibility-public-std",
+                "-std=c++11",
                 "-o",
                 "${workspaceFolder}/assignment3.out"
             ],
@@ -74,6 +77,7 @@
                 },
                 "-Xclang",
                 "-flto-visibility-public-std",
+                "-std=c++11",
                 "-o",
                 "${workspaceFolder}/assignment4.out"
             ],

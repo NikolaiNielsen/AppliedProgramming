@@ -19,16 +19,27 @@ int main()
 
 void regressionTestsSparse()
 {
-    SparseVector<int> s(3);
+    SparseVector<int> s(10);
     s.print();
 
     SparseVector<int> s2;
     s2.print();
 
-    std::cout << s.getValue(1) << "\n";
+    // std::cout << s.getValue(1) << "\n";
 
     s.setValue(1, 3);
+    s.setValue(3, 4);
+    s.setValue(6, 1);
     s.print();
+
+    s.getValue(3);
+    s.getValue(9);
+    s.getValue(0);
+    s.getValue(10);
+
+    s2.getValue(0);
+
+
 
 }
 
