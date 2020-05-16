@@ -11,8 +11,8 @@ int main()
 {
     // Exercise 1
     // Regression tests.
-    // regressionTestsVector();
-    // regressionTestsMatrix();
+    regressionTestsVector();
+    regressionTestsMatrix();
     regressionTestsSparse();
     return 0;
 }
