@@ -44,39 +44,82 @@ public:
 	// sets the value v_i of the vector. if it does not exist it is added
 	void setValue(unsigned int index, T value)
     {
-        // std::vector<T>::iterator lower;
-        mIndices.push_back(index);
-        mValues.push_back(value);
+        // Make sure we're trying to reach an actual element. We don't need the
+        // <0 check, since we're using unsigned integers.
+        assert(index < mDimension);
+
+        // Get the lower bound for the index.
+        auto lower = std::lower_bound(mIndices.begin(), mIndices.end(), index);
+        // The actual position is the lower bound minus the starting position
+        // memory.
+        auto position = lower - mIndices.begin();
+
+        // We are guaranteed that we try to set a valid element.
+        // Now there are two possibilities - either the element is already set
+        // or it is not. 
+
+        // First, if the position is equal to the number of non-zero values, we
+        // are safe to put the index and value in the back of the pile (since
+        // this means that the index is not stored in the vector yet)
+        if (position == nonZeroes())
+        {
+            mValues.push_back(value);
+            mIndices.push_back(index);
+        }
+        // Next, if 0 <= position < nonZeros() we have two possible cases.
+        // 1) The mIndices[position] matches the index, and we already have a
+        //    non-zero value stored for this index - so go ahead and change it.
+        // 2) the index does not match the position - then we have no non-zero
+        //    value stored for this index. Go ahead and insert it at that
+        //    position.
+        else if (mIndices[position] == index)
+        {
+            // case 1
+            mValues[position] = value;
+        }
+        // else
+        {
+            // case 2
+            mValues.insert(position, value);
+            mIndices.insert(position, index);
+        }
+        
+
+        
     }
 
 	// returns the value v_i of the vector. Returns 0 if the value is not
     // stored
 	T getValue(unsigned int index) const
     {
+        // Make sure we're trying to reach an actual element. We don't need the
+        // <0 check, since we're using unsigned integers.
+        assert(index < mDimension);
 
-        // std::vector<unsigned int>::iterator lower;
+        // Get the lower bound for the index.
         auto lower = std::lower_bound(mIndices.begin(), mIndices.end(), index);
+        // The actual position is the lower bound minus the starting position
+        // memory.
         auto position = lower - mIndices.begin();
-        std::cout << "Index " << index << " has position " << position << "\n";
+        std::cout << "Index " << index << " value " << position << "\n";
 
-        if ((unsigned int)(position) == nonZeroes())
+        // If there are no indices stored, we return 0.
+        if (nonZeroes() == 0)
         {
             return (T)(0);
         }
-        else if ((unsigned int)(position) == 0)
-        {
-            return (T)(0);
-        }
-        else
+        // If the index is the same as the value of mIndices stored at
+        // position, then it's safe to return the value at position.
+        if (mIndices[position] == index)
         {
             return mValues[position];
         }
+        // If something else happened, not caught in the two if statements, we
+        // just return 0 as well (ie, if the index didn't match the stored
+        // value in mIndices).
+        return (T)(0);
         
-            
-
-        // // Make sure we're trying to reach an actual element. We don't need the
-        // // <0 check, since we're using unsigned integers.
-        // assert (index < mDimension);
+        
         // // If there are no indices, return 0 immediately (to avoid an infinite
         // // for loop)
         // if (nonZeroes() == 0)

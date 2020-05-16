@@ -25,20 +25,20 @@ void regressionTestsSparse()
     SparseVector<int> s2;
     s2.print();
 
-    // std::cout << s.getValue(1) << "\n";
+    std::cout << s.getValue(1) << "\n";
 
     s.setValue(1, 3);
     s.setValue(3, 4);
     s.setValue(6, 1);
     s.print();
 
-    s.getValue(3);
-    s.getValue(9);
-    s.getValue(0);
-    s.getValue(10);
 
-    s2.getValue(0);
-
+    std::cout << "accessing values in s:\n";
+    for (int i = 0; i<10; i++)
+    {
+        // std::cout << i << ", " << s.getValue(i) << "\n";
+        s.getValue(i);
+    }
 
 
 }
