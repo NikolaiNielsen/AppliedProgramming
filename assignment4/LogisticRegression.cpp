@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <cassert>
 #include "armadillo.hpp"
 #include <cmath>
 
@@ -21,20 +20,41 @@ int main()
     arma::colvec w;
     w.zeros(34);
 
-    arma::colvec g1 = grad(xData, w, yData);
-    
-    arma::colvec g2;
-    g2.zeros(34);
-    for (int i = 0; i < xData.n_rows; i++)
-    {
-        g2 += yData[i] * 0.5 * xData.row(i).t();
-    }
-    g2 = -g2/xData.n_rows;
+    // Learning rate
+    double alpha = 0.5;
 
-    for (int i=0; i< 34; i++)
+    // cutoff
+    double epsilon = 1e-7;
+    int N=1000000;
+
+    // Run gradient descent
+    for (int i=0; i<N; i++)
     {
-        std::cout << g1[i] - g2[i] << "\n";
+        arma::colvec g = grad(xData, w, yData);
+        auto norm = arma::norm(g);
+        if ((double)(norm) < epsilon)
+        {
+            // std::cout << "epsilon reached. i=" << i << "\n";
+            break;
+        }
+        w = w - alpha*g;
     }
+    
+    // Collect results
+    std::ofstream out_file("./LogReg.dat");
+    for (int i=0; i<xTest.n_rows; i++)
+    {
+        auto f = arma::dot(w, xTest.row(i));
+        if (f>0)
+        {
+            out_file << 1 << "\n";
+        }
+        else
+        {
+            out_file << -1 << "\n";
+        }
+        
+    } 
 
     return 0;
 }
