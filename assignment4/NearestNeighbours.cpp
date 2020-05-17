@@ -2,24 +2,32 @@
 #include <fstream>
 #include <cassert>
 #include "armadillo.hpp"
-#include <cmath>
 
 int classifyPoint(arma::mat data, arma::rowvec point, arma::vec labels, 
                   int k=5);
 
 int main()
 {   
-    int n_rows = 200;
-    int n_cols = 34;
     arma::vec yData;
     arma::mat xData;
     arma::mat xTest;
 
-    yData.load("/home/niko/Dropbox/KU/5 Year/AppliedProgramming/assignment4/dataY.dat", arma::raw_ascii);
-    xData.load("/home/niko/Dropbox/KU/5 Year/AppliedProgramming/assignment4/dataX.dat", arma::raw_ascii);
-    xTest.load("/home/niko/Dropbox/KU/5 Year/AppliedProgramming/assignment4/dataXtest.dat", arma::raw_ascii);
+    // import the data
+    yData.load("./dataY.dat", arma::raw_ascii);
+    xData.load("./dataX.dat", arma::raw_ascii);
+    xTest.load("./dataXtest.dat", arma::raw_ascii);
 
-    classifyPoint(xData, xTest.row(0), yData, 5);
+    // Create
+    std::ofstream out_file("./NN.dat");
+    assert(out_file.is_open());
+    for (int i=0; i<xTest.n_rows; i++)
+    {
+        int res = classifyPoint(xData, xTest.row(i), yData);
+        out_file << res << "\n";
+    }
+    out_file.close();
+    
+
     return 0;
 }
 
