@@ -70,7 +70,6 @@
             "command": "/usr/bin/clang++",
             "args": [
                 "-g",
-                "${workspaceFolder}/assignment4test.cpp",
                 {
                     "value": "${workspaceFolder}/assignment4/*.cpp",
                     "quoting": "escape"
@@ -99,7 +98,7 @@
                     "quoting": "escape"
                 },
                 {
-                    "value": "${workspaceFolder}/assignment${input:assignment}/*.h",
+                    "value": "${workspaceFolder}/assignment${input:assignment}/*.hpp",
                     "quoting": "escape"
                 }
             ],
