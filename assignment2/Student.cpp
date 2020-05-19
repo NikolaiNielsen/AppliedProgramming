@@ -4,11 +4,11 @@
 void Student::SetLibraryFines(double amount)
 {
     // We cannot have a negative fine - the library doesn't owe you money.
-    assert (amount>=0);
+    // assert (amount>=0);
     if (amount < 0.0)
     {
         // Either we flip the amount, so it's positive
-        amount = -amount;
+        // amount = -amount;
         // Or we set the amount to 0
         amount = 0.0;
     }

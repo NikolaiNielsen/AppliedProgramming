@@ -97,10 +97,10 @@
                     "value": "${workspaceFolder}/assignment${input:assignment}/*.cpp",
                     "quoting": "escape"
                 },
-                {
-                    "value": "${workspaceFolder}/assignment${input:assignment}/*.hpp",
-                    "quoting": "escape"
-                }
+                // {
+                //     "value": "${workspaceFolder}/assignment${input:assignment}/*.hpp",
+                //     "quoting": "escape"
+                // }
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
